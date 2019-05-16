@@ -1,0 +1,2 @@
+# clash
+CLASH FOR OPENWRT
