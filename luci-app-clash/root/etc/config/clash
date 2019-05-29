@@ -1,0 +1,8 @@
+config clash 'config'
+	option proxy_port '7892'
+	option enable '0'
+	option mode '0'
+	option cn_port '9090'
+	option dashboard_password '123456'
+	option auto_update '1'	
+	option auto_update_time '0'

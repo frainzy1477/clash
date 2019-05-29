@@ -1,0 +1,168 @@
+msgid "Google"
+msgstr "谷歌网"
+
+msgid "Youtube"
+msgstr "Youtube网"
+
+msgid "Baidu"
+msgstr "百度网"
+
+msgid "Taobao"
+msgstr "淘宝网"
+
+msgid "NORMAL"
+msgstr "连接正常"
+
+msgid "TIMEOUT"
+msgstr "连接超时"
+
+msgid "UNAVAILABLE"
+msgstr "无法访问"
+
+msgid "Domestic IP"
+msgstr "国内网IP"
+
+msgid "Global IP"
+msgstr "国外网IP"
+
+msgid "clash"
+msgstr "clash"
+
+msgid "OPEN DASHBOARD"
+msgstr "打开控制面板"
+
+msgid "Clash Dashboard"
+msgstr "Clash控制面板"
+
+msgid "Yacd Dashboard"
+msgstr "Yacd控制面板"
+
+msgid "Clash Client"
+msgstr "Clash客户端"
+
+msgid "Server Configuration"
+msgstr "配置文件"
+
+msgid "Server logs"
+msgstr "服务器日志"
+
+msgid "Custom DNS"
+msgstr "自定义DNS"
+
+msgid "Modify yml DNS"
+msgstr "修改 DNS"
+
+msgid "External UI"
+msgstr "外部 UI"
+
+msgid "Logs"
+msgstr "服务器日志"
+
+msgid "Enable"
+msgstr "启用"
+
+msgid "Mode"
+msgstr "模式"
+
+msgid "Settings"
+msgstr "设置"
+
+msgid "Update time (every day)"
+msgstr "更新时间 (每天)"
+
+msgid "Auto Update"
+msgstr "自动更新"
+
+msgid "Auto Update Server subscription"
+msgstr "自动更新服务器订阅"
+
+msgid "Daily Server subscription update time"
+msgstr "每日服务器订阅更新时间"
+
+msgid "Select Mode"
+msgstr "选择模式"
+
+msgid "Do not enable if you do not know how to use it"
+msgstr "如果你不知道怎么使用，请别开了。"
+
+msgid "Enable or Disable mode selection"
+msgstr "启用或禁用选择增模式"
+
+msgid "Enable Mode"
+msgstr "启用模式"
+
+msgid "Enhanced-Mode"
+msgstr "模式"
+
+msgid "Choose Enhanced-Mode"
+msgstr "选择模式"
+
+msgid "Enable Clash"
+msgstr "启用Clash"
+
+msgid "Enable BBR"
+msgstr "启用BBR"
+
+msgid "Bottleneck Bandwidth and Round-trip propagation time (BBR)"
+msgstr ""
+"BBR拥塞控制算法可以加强TCP应用表现，但会降低路由器本机上的WIFI吞吐性能"
+
+msgid "Config"
+msgstr "服务器配置"
+
+msgid "Please modify the file here."
+msgstr "填写时请按照模板格式"
+
+msgid "GEOIP Database"
+msgstr "GEOIP数据库"
+
+msgid "Update GEOIP Database"
+msgstr "更新GEOIP数据库"
+
+msgid "Upload Clash Configuration"
+msgstr "上传Clash配置"
+
+msgid ""
+"NB: Rename your config file to config.yml before upload. file will save to /"
+"etc/clash"
+msgstr ""
+"注意：上传之前，请将配置文件重命名为config.yml。文件将保存到 /etc/clash"
+
+msgid "* Clash Redir Port"
+msgstr "* 转发端口"
+
+msgid "Subcription Url"
+msgstr "订阅URL"
+
+msgid "Update Subcription"
+msgstr "更新订阅配置"
+
+msgid "Update Configuration"
+msgstr "更新配置文件"
+
+msgid "After clash start running, wait a moment for servers to resolve,enjoy"
+msgstr "运行后，等待服务器传播"
+
+msgid "Clash config redir-port"
+msgstr "转发端口"
+
+msgid "Server Subscription Address"
+msgstr "服务器订阅地址"
+
+msgid "Changes to config file must be made from source"
+msgstr "必须从源文件更改配置文件"
+
+msgid "Dashboard Secret"
+msgstr "管理页面秘密"
+
+msgid "Dashboard hostname is Your router local address. eg, 192.168.1.1"
+msgstr "管理页面主机名是您的路由器本地地址。例如，192.168.1.1"
+
+msgid "Dashboard Port"
+msgstr "管理页面端口"
+
+msgid "mode selection"
+msgstr "选择模式"
+
+
+
