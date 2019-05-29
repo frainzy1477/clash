@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-clash
 PKG_VERSION:=2.5
-PKG_RELEASE:=0
+PKG_RELEASE:=1
 PKG_MAINTAINER:=frainzy1477
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
 
@@ -14,7 +14,7 @@ define Package/luci-app-clash
 	CATEGORY:=LuCI
 	SUBMENU:=2. Services
 	TITLE:=LuCI app for clash
-	DEPENDS:=+clash +bash +coreutils-nohup
+	DEPENDS:=+bash +coreutils-nohup
 	PKGARCH:=all
 	MAINTAINER:=frainzy1477
 endef
