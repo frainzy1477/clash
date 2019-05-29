@@ -1,6 +1,9 @@
 <h1 align="center">
   <img src="https://github.com/Dreamacro/clash/raw/master/docs/logo.png" alt="Clash" width="200">
   <br>Clash for OpenWrt <br>
+
+</h1>
+
   <p align="center">
 	A rule based custom proxy for Openwrt based on <a href="https://github.com/Dreamacro/clash" target="_blank">Clash</a>.
   </p>
@@ -12,7 +15,6 @@
     <img src="https://img.shields.io/badge/Clash-v0.14.0-orange.svg">
   </a>
   </p>
-</h1>
 
 ## Features
 
