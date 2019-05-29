@@ -28,7 +28,7 @@ var HTTP = {
 			img.onerror = img.onload = null;
 			img = null;
 			document.getElementById(cbElID).innerHTML = '<em><b><font color=red><%:UNAVAILABLE%></font></b></em>'
-		}, 1000);
+		}, 3000);
 		img.onerror = () => {
 			clearTimeout(timeout);
 			document.getElementById(cbElID).innerHTML = '<em><b><font color=red><%:TIMEOUT%></font></b></em>'
