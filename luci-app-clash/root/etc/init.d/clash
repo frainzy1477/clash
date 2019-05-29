@@ -46,7 +46,6 @@ yml_change(){
 #===========================================================================================================================
 		mode=$(uci get clash.config.mode 2>/dev/null)
 		da_password=$(uci get clash.config.dashboard_password 2>/dev/null)
-		cn_port=$(uci get clash.config.cn_port 2>/dev/null)
 		proxy_port=$(uci get clash.config.proxy_port 2>/dev/null)
 		
 if [ $mode -eq 1 ];  then
@@ -62,7 +61,7 @@ if [ $mode -eq 1 ];  then
 		#sed -i "4i\allow-lan: true" /etc/clash/config.yml
 		#sed -i "5i\mode: Rule" /etc/clash/config.yml
 		#sed -i "6i\log-level: info" /etc/clash/config.yml
-		#sed -i "7i\external-controller: 0.0.0.0:${cn_port}" /etc/clash/config.yml
+		#sed -i "7i\external-controller: 0.0.0.0:9090" /etc/clash/config.yml
 		#sed -i "8i\secret: '${da_password}'" /etc/clash/config.yml
 		#sed -i "9i\ " /etc/clash/config.yml
 		#sed -i "10i\ " /etc/clash/config.yml
@@ -93,7 +92,7 @@ if [ $mode -eq 1 ];  then
 		sed -i "4i\allow-lan: true" /etc/clash/config.yml
 		sed -i "5i\mode: Rule" /etc/clash/config.yml
 		sed -i "6i\log-level: info" /etc/clash/config.yml
-		sed -i "7i\external-controller: 0.0.0.0:${cn_port}" /etc/clash/config.yml
+		sed -i "7i\external-controller: 0.0.0.0:9090" /etc/clash/config.yml
 		sed -i "8i\secret: '${da_password}'" /etc/clash/config.yml
 		sed -i "9i\external-ui: "/usr/share/clash/dashboard"" /etc/clash/config.yml
 		sed -i "10i\ " /etc/clash/config.yml
@@ -111,7 +110,7 @@ else
 		sed -i "4i\allow-lan: true" /etc/clash/config.yml
 		sed -i "5i\mode: Rule" /etc/clash/config.yml
 		sed -i "6i\log-level: info" /etc/clash/config.yml
-		sed -i "7i\external-controller: 0.0.0.0:${cn_port}" /etc/clash/config.yml
+		sed -i "7i\external-controller: 0.0.0.0:9090" /etc/clash/config.yml
 		sed -i "8i\secret: '${da_password}'" /etc/clash/config.yml
 		sed -i "9i\external-ui: "/usr/share/clash/dashboard"" /etc/clash/config.yml
 		sed -i "10i\ " /etc/clash/config.yml
