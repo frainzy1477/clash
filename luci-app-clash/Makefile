@@ -4,7 +4,6 @@ PKG_NAME:=luci-app-clash
 PKG_VERSION:=2.5
 PKG_RELEASE:=1
 PKG_MAINTAINER:=frainzy1477
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
 
 
 include $(INCLUDE_DIR)/package.mk
