@@ -3,12 +3,10 @@
 <fieldset class="cbi-section">
 	<table width="100%" cellspacing="10">
 	
-	    <tr><td width="33%">  <span><%:Google%></span>&nbsp;:&nbsp;<span id="_google"><em><%:Collecting data...%></em></span></td><td><span><%:Youtube%> </span>&nbsp;:&nbsp;<span id="_youtube"><em><%:Collecting data...%></em></span></td></tr>    
-		<tr><td width="33%"> <span><%:Baidu%></span>&nbsp;:&nbsp;<span  id="_baidu"><em><%:Collecting data...%></em></span></td> <td><span><%:Taobao%> </span>&nbsp;:&nbsp;<span id="_taobao"><em><%:Collecting data...%></em></span></td></tr>
+	    <tr><td width="33%"><span><%:Global IP%> </span>&nbsp;:&nbsp;<span id="ip-gb"></span></td>  <td width="33%">  <span><%:Google%></span>&nbsp;:&nbsp;<span id="_google"><em><%:Collecting data...%></em></span></td><td><span><%:Youtube%> </span>&nbsp;:&nbsp;<span id="_youtube"><em><%:Collecting data...%></em></span></td></tr>    
+		<tr><td width="33%"><span><%:Domestic IP%> </span>&nbsp;:&nbsp;<span id="d-ip"></span></td>  <td width="33%"> <span><%:Baidu%></span>&nbsp;:&nbsp;<span  id="_baidu"><em><%:Collecting data...%></em></span></td> <td><span><%:Taobao%> </span>&nbsp;:&nbsp;<span id="_taobao"><em><%:Collecting data...%></em></span></td></tr>
 
-		<tr><td width="33%"><span><%:Domestic IP%> </span>&nbsp;:&nbsp;<span id="d-ip"></span></td> <td><span  id="ip-countryy"></span> <span  id="ip-regionName"></span> <span  id="ip-cityy"></span> <span  id="ip-district"></span> <span  id="ip-org"></span> <span  id="ip-ispp"></span>    </td></tr>
-		<tr><td width="33%"><span><%:Global IP%> </span>&nbsp;:&nbsp;<span id="ip-gb"></span></td> <td><span  id="ip-country"></span> <span id="regionName"></span> </span> <span  id="ip-city"></span> <span  id="ip-districtt"></span><span  id="ip-orgg"></span> <span  id="ip-isp"></span>   </td></tr>
-
+		
 	</table>
 </fieldset>
 
@@ -18,7 +16,8 @@
 
 window.ipCallback = (data) => HTTP.DomesticIP(data);
 			
-window.getgeoip = (data) => HTTP.GlobalIP(data);
+//window.getgeoip = (data) => HTTP.GlobalIP(data);
+
 
 
 var HTTP = {
@@ -44,9 +43,9 @@ var HTTP = {
 		             
 	},
 
-        GlobalIP: (data) => {
-                document.getElementById('ip-gb').innerHTML = data.ip;
-        }
+        //GlobalIP: (data) => {
+        //        document.getElementById('ip-gb').innerHTML = data.ip;
+        //}
 
 	
 
@@ -54,8 +53,7 @@ var HTTP = {
 
 XHR.poll(1, '<%=luci.dispatcher.build_url("admin", "services", "clash", "status")%>', null, function(x, status) {
 		if ( x && x.status == 200 ) {
-			LOCC.getAIP();
-			LOCC.getAIPP();		
+			globalip();		
 			HTTP.checker('www.baidu.com', '_baidu');
 			HTTP.checker('www.google.com', '_google');
 			HTTP.checker('www.youtube.com', '_youtube');
@@ -69,72 +67,19 @@ XHR.poll(1, '<%=luci.dispatcher.build_url("admin", "services", "clash", "status"
 
 <script src="https://www.taobao.com/help/getip.php"></script>
 <!--<script type="application/javascript" src="https://api.ip.sb/geoip?callback=getgeoip"></script>-->
-<script type="application/javascript" src="https://api-ipv4.ip.sb/jsonip?callback=getgeoip"></script>
+<!--<script type="application/javascript" src="https://api-ipv4.ip.sb/jsonip?callback=getgeoip"></script>-->
 
 
-<script type="text/javascript">
- 
-let LOCC = {
-	get: (url, type) =>
-                fetch(url, { method: 'GET' }).then((resp) => {
-                    if (type === 'text')
-                        return Promise.all([resp.ok, resp.status, resp.text(), resp.headers]);
-                    else {
-                        return Promise.all([resp.ok, resp.status, resp.json(), resp.headers]);
-                    }
-                }).then(([ok, status, data, headers]) => {
-                    if (ok) {
-                        let json = {
-                            ok,
-                            status,
-                            data,
-                            headers
-                        }
-                        return json;
-                    } else {
-                        throw new Error(JSON.stringify(json.error));
-                    }
-                }).catch(error => {
-                    throw error;
-    }),
+<script type="application/javascript">
+//window.onload = function() {
 
-	getAIPP: () => {
-		var ip = document.getElementById('ip-gb').innerHTML;		
-                LOCC.get(`http://ip-api.com/json/${ip}?fields=message,country,countryCode,region,regionName,city,district,isp,org`, 'json')
-                    .then(resp => {
-						//document.getElementById('ip-query').innerHTML = resp.data.query;
-                        document.getElementById('ip-country').innerHTML = resp.data.country;
-						document.getElementById('ip-city').innerHTML = resp.data.city;
-						document.getElementById('ip-orgg').innerHTML = resp.data.org;
-						document.getElementById('regionName').innerHTML = resp.data.regionName;
-						document.getElementById('ip-isp').innerHTML = resp.data.isp;
-						if (resp.data.district== ""){
-						document.getElementById('ip-districtt').innerHTML = "";
-						}else{
-						document.getElementById('ip-districtt').innerHTML = resp.data.district;						
-						}
-
-                    })
-        },
-
-       getAIP: () => {
-		var ip = document.getElementById('d-ip').innerHTML;
-                LOCC.get(`http://ip-api.com/json/${ip}?fields=message,country,countryCode,region,regionName,city,district,isp,org`, 'json')
-					 .then(resp => {
-                       	document.getElementById('ip-countryy').innerHTML = resp.data.country;
-						document.getElementById('ip-cityy').innerHTML = resp.data.city;
-						document.getElementById('ip-org').innerHTML = resp.data.org;
-						document.getElementById('ip-regionName').innerHTML = resp.data.regionName;
-						document.getElementById('ip-ispp').innerHTML = resp.data.isp;
-						if (resp.data.district== ""){
-						document.getElementById('ip-district').innerHTML = "";
-						}else{
-						document.getElementById('ip-district').innerHTML = resp.data.district;						
-						}
-
-			})
-        }
+function globalip() {
+		$.getJSON("https://api.ipgeolocation.io/getip", function(data){
+			console.log(data)
+			document.getElementById('ip-gb').innerHTML = data.ip;
+		})  
 }
-
-
 </script>
+
+
+
