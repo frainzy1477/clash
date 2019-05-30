@@ -8,12 +8,13 @@
 	A rule based custom proxy for Openwrt based on <a href="https://github.com/Dreamacro/clash" target="_blank">Clash</a>.
   </p>
   <p align="center">
-  <a target="_blank" href="https://github.com/frainzy1477/clash/releases">
-    <img src="https://img.shields.io/badge/release-2.5.0-blue.svg">
-  </a>
-  <a target="_blank" href="https://github.com/Dreamacro/clash/releases">
+	<a target="_blank" href="https://github.com/frainzy1477/clash/releases/tag/v0.14.0">
     <img src="https://img.shields.io/badge/Clash-v0.14.0-orange.svg">
   </a>
+  <a target="_blank" href="https://github.com/frainzy1477/clash/releases/tag/v2.5">
+    <img src="https://img.shields.io/badge/luci%20for%20clash-v2.5-blue.svg">
+  </a>
+  
   </p>
 
 ## Features
