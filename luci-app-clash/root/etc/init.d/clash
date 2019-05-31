@@ -155,7 +155,7 @@ yml_dns_change(){
 	   fi
 
 	else
-		#dns_serve1=$(uci get dhcp.@dnsmasq[0].server 2>/dev/null)
+		dns_serve1=$(uci get dhcp.@dnsmasq[0].server 2>/dev/null)
 		if [ $dns_serve1 ]; then
 			uci del dhcp.@dnsmasq[-1].server
 		fi
