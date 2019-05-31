@@ -33,6 +33,7 @@
 ## Dependency
 
 - clash
+- wget
 - bash
 - coreutils-nohup
 
