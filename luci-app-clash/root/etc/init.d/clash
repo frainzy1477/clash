@@ -115,9 +115,6 @@ else
 		sed -i "9i\external-ui: "/usr/share/clash/dashboard"" /etc/clash/config.yml
 		sed -i "10i\ " /etc/clash/config.yml
 		sed -i "11i\ " /etc/clash/config.yml
-		sed -i '/enhanced-mode:/ d' /etc/clash/config.yml
-		sed -i '/fake-ip-range:/ d' /etc/clash/config.yml
-		sed -i "/listen:/i\  enhanced-mode: redir-host" /etc/clash/config.yml
 		sed -i '/#=============/ d' /etc/clash/config.yml
 
 fi
@@ -158,11 +155,11 @@ yml_dns_change(){
 	   fi
 
 	else
-		dns_serve1=$(uci get dhcp.@dnsmasq[0].server 2>/dev/null)
+		#dns_serve1=$(uci get dhcp.@dnsmasq[0].server 2>/dev/null)
 		if [ $dns_serve1 ]; then
 			uci del dhcp.@dnsmasq[-1].server
 		fi
-	        uci add_list dhcp.@dnsmasq[0].server=127.0.0.1#$dns_port >/dev/null 2>&1
+	        #uci add_list dhcp.@dnsmasq[0].server=127.0.0.1#$dns_port >/dev/null 2>&1
 		uci set dhcp.@dnsmasq[0].resolvfile=/tmp/resolv.conf.auto
 		uci set dhcp.@dnsmasq[0].noresolv=0
 		uci commit dhcp
@@ -198,16 +195,10 @@ rules(){
 		iptables -t nat -A clash -p tcp --dport 22 -j ACCEPT
 
 		iptables -t nat -A clash -p tcp -j REDIRECT --to-ports $proxy_port
-		iptables -t nat -A clash -p udp -j REDIRECT --to-ports $proxy_port
+		iptables -t nat -A clash -p udp -j REDIRECT --to-ports $dns_port
 
 		iptables -t nat -A PREROUTING -p tcp -j clash
 		iptables -t nat -A PREROUTING -p udp -j clash
-
-		iptables -t nat -A PREROUTING -p tcp --dport 53 -d 198.19.0.0/24 -j clash_dns
-		iptables -t nat -A PREROUTING -p udp --dport 53 -d 198.19.0.0/24 -j clash_dns
-
-		iptables -t nat -A clash_dns -p udp --dport 53 -d 198.19.0.0/24 -j DNAT --to-destination $LAN_IP:$dns_port
-		iptables -t nat -A clash_dns -p tcp --dport 53 -d 198.19.0.0/24 -j DNAT --to-destination $LAN_IP:$dns_port
 		
 		
 #=========================================================================================================================== 
@@ -247,12 +238,12 @@ if [ $enable -eq 1 ]; then
 	if pidof clash >/dev/null; then
 		add_cron
 	else
-		echo "===============================$(date "+%Y-%m-%d %H:%M:%S")  ERROR OCCURED =====================================" >> /tmp/clash.log
+	echo "===============================$(date "+%Y-%m-%d %H:%M:%S")  ERROR OCCURED =====================================" >> /tmp/clash.log
 	fi
 						
 else
 
-		echo "===============================$(date "+%Y-%m-%d %H:%M:%S")  CLASH IS DISABLED =====================================" >> /tmp/clash.log
+	echo "===============================$(date "+%Y-%m-%d %H:%M:%S")  CLASH IS DISABLED =====================================" >> /tmp/clash.log
 			  
 	
 fi
