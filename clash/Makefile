@@ -18,7 +18,7 @@ ifeq ($(ARCH),x86_64)
 	PKG_ARCH:=amd64
 endif
 ifeq ($(ARCH),arm)
-	PKG_ARCH:=armv6
+	PKG_ARCH:=armv7
 endif
 ifeq ($(ARCH),aarch64)
 	PKG_ARCH:=armv8
