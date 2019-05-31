@@ -6,7 +6,7 @@ local DISP = require "luci.dispatcher"
 local UTIL = require "luci.util"
 
 
-m = Map("clash", translate("Server logs"))
+m = Map("clash", translate("logs"))
 s = m:section(TypedSection, "clash")
 s.anonymous = true
 s.addremove=false
