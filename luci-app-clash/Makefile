@@ -55,6 +55,7 @@ define Package/$(PKG_NAME)/install
 	$(INSTALL_BIN) ./root/usr/share/clash/clash.sh $(1)/usr/share/clash/
 	$(INSTALL_BIN) ./root/usr/share/clash/ipdb.sh $(1)/usr/share/clash/
 	$(INSTALL_BIN) ./root/usr/share/clash/dns.yml $(1)/usr/share/clash/
+	$(INSTALL_BIN) ./root/usr/share/clash/clash-watchdog.sh $(1)/usr/share/clash/
 	
 	$(INSTALL_BIN) ./root/usr/share/clash/web/* $(1)/usr/share/clash/web
 	$(INSTALL_BIN) ./root/usr/share/clash/dashboard/index.html $(1)/usr/share/clash/dashboard/
