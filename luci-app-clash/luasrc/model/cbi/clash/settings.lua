@@ -20,15 +20,14 @@ o.datatype = "port"
 o.rmempty = false
 o.description = translate("Clash config redir-port")
 
-o = s:option(Value, "cn_port")
+o = s:option(Value, "dash_port")
 o.title = translate("Dashboard Port")
-o.readonly=true
 o.default = 9090
 o.datatype = "port"
 o.rmempty = false
-o.description = translate("Dashboard hostname is Your router local address. eg, 192.168.1.1")
+o.description = translate("Dashboard Port")
 
-o = s:option(Value, "dashboard_password")
+o = s:option(Value, "dash_pass")
 o.title = translate("Dashboard Secret")
 o.default = 123456
 o.rmempty = false
@@ -49,7 +48,7 @@ end
 md = s:option(Flag, "mode", translate("Custom DNS"))
 md.default = 1
 md.rmempty = false
-md.description = translate("Do not enable if you do not know how to use it")
+md.description = translate("Enabling Custom DNS will Overwrite your config.yml dns section")
 
 
 local dns = "/usr/share/clash/dns.yml"

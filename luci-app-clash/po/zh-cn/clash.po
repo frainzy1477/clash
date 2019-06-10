@@ -1,3 +1,18 @@
+msgid "Enabling Custom DNS will Overwrite your config.yml dns section"
+msgstr "启用自定义DNS会覆盖config.yml dns"
+
+msgid "Dashboard Hostname"
+msgstr "控制面板登录IP"
+
+msgid "Dashboard Port"
+msgstr "控制面板端口"
+
+msgid "Clear Logs"
+msgstr "清理日志"
+
+msgid "Dashboard Secret"
+msgstr "控制面板密码"
+
 msgid "Google"
 msgstr "谷歌网"
 
@@ -10,7 +25,7 @@ msgstr "百度网"
 msgid "Taobao"
 msgstr "淘宝网"
 
-msgid "NORMAL"
+msgid "CONNECT OK"
 msgstr "连接正常"
 
 msgid "TIMEOUT"
@@ -40,11 +55,11 @@ msgstr "Yacd控制面板"
 msgid "Clash Client"
 msgstr "Clash客户端"
 
-msgid "Server Configuration"
+msgid "Configuration"
 msgstr "配置文件"
 
-msgid "Server logs"
-msgstr "服务器日志"
+msgid "logs"
+msgstr "日志"
 
 msgid "Custom DNS"
 msgstr "自定义DNS"
@@ -56,7 +71,7 @@ msgid "External UI"
 msgstr "外部 UI"
 
 msgid "Logs"
-msgstr "服务器日志"
+msgstr "日志"
 
 msgid "Enable"
 msgstr "启用"
@@ -108,7 +123,7 @@ msgstr ""
 "BBR拥塞控制算法可以加强TCP应用表现，但会降低路由器本机上的WIFI吞吐性能"
 
 msgid "Config"
-msgstr "服务器配置"
+msgstr "配置"
 
 msgid "Please modify the file here."
 msgstr "填写时请按照模板格式"
@@ -152,17 +167,9 @@ msgstr "服务器订阅地址"
 msgid "Changes to config file must be made from source"
 msgstr "必须从源文件更改配置文件"
 
-msgid "Dashboard Secret"
-msgstr "管理页面秘密"
-
 msgid "Dashboard hostname is Your router local address. eg, 192.168.1.1"
 msgstr "管理页面主机名是您的路由器本地地址。例如，192.168.1.1"
 
-msgid "Dashboard Port"
-msgstr "管理页面端口"
-
 msgid "mode selection"
 msgstr "选择模式"
-
-
 

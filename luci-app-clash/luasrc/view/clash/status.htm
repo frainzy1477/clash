@@ -1,9 +1,16 @@
 
 <fieldset class="cbi-section">
 	<table width="100%" cellspacing="10">
-		<tr><td width="33%"><%:Clash Client%></td><td id="_clash"><em><%:Collecting data...%></em></td></tr>
-		<tr><td width="33%"><%:Clash Dashboard%></td><td id="_web"><em> <%:Collecting data...%> </em></td></tr>
-		<tr><td width="33%"><%:Yacd Dashboard%></td><td id="_webb"><em> <%:Collecting data...%> </em></td></tr>
+		<tr><td width="40%"<span><%:Clash Client%></span></td><td id="_clash"><em><%:Collecting data...%></em></td> </tr>
+		<tr><td width="40%"><span><%:Clash Dashboard%></span></td><td id="_web"><em> <%:Collecting data...%> </em></td> </tr>
+		<tr><td width="40%"><span><%:Yacd Dashboard%></span></td><td id="_webb"><em> <%:Collecting data...%> </em></td> </tr>
+	</table>
+</fieldset>
+<fieldset class="cbi-section">
+	<table width="100%" cellspacing="10">
+		<tr><td width="40%"> <%:Dashboard Hostname%></td><td  id="_ip"><em><%:Collecting data...%></em></td></tr>
+		<tr><td width="40%"> <%:Dashboard Port%></td><td  id="_port"><em><%:Collecting data...%></em></td></tr>
+		<tr><td width="40%"> <%:Dashboard Secret%></td> <td  id="_secret"><em><%:Collecting data...%></em></td></tr>
 	</table>
 </fieldset>
 
@@ -11,15 +18,22 @@
 	var web = document.getElementById('_web');
 	var webb = document.getElementById('_webb');
 	var clash = document.getElementById('_clash');
-	XHR.poll(5, '<%=luci.dispatcher.build_url("admin", "services", "clash", "status")%>', null, function(x, status) {
+	var ip = document.getElementById('_ip');
+	var port = document.getElementById('_secret');
+	var secret = document.getElementById('_port');
+	XHR.poll(1, '<%=luci.dispatcher.build_url("admin", "services", "clash", "status")%>', null, function(x, status) {
 		if ( x && x.status == 200 ) {
-			web.innerHTML = status.web ? '<em><a type="button" class="btn" style="background-color:black;padding: 5px;"  href="http://'+window.location.hostname+':9090/ui" target="_blank"/><b><font color=green><%:OPEN DASHBOARD%></font></b></a></em>' : '<em><b><font color=red><%:NOT RUNNING%></font></b></em>';
+			web.innerHTML = status.web ? '<em><a type="button" class="btn" style="background-color:black;padding: 5px;"  href="http://'+window.location.hostname+':'+status.dash_port+'/ui" target="_blank"/><b><font color=green><%:OPEN DASHBOARD%></font></b></a></em>' : '<em><b><font color=red><%:NOT RUNNING%></font></b></em>';
 			webb.innerHTML = status.web ? '<em><a type="button" class="btn" style="background-color:black;padding: 5px;"  href="http://'+window.location.hostname+'/clash" target="_blank"/><b><font color=green><%:OPEN DASHBOARD%></font></b></a></em>' : '<em><b><font color=red><%:NOT RUNNING%></font></b></em>';
 			clash.innerHTML = status.clash ? '<em><b><font color=green><%:RUNNING%></font> </b></em>' : '<em><b><font color=red><%:NOT RUNNING%></font></b></em>';
+			ip.innerHTML = status.localip ? '<em><b><font color=green>'+status.localip+'</font> </b></em>' : '<em><b><font color=red><%:NOT SET%></font></b></em>';
+			port.innerHTML = status.dash_port ? '<em><b><font color=green>'+status.dash_port+'</font> </b></em>' : '<em><b><font color=red><%:NOT SET%></font></b></em>';
+			secret.innerHTML = status.dash_pass ? '<em><b><font color=green>'+status.dash_pass+'</font> </b></em>' : '<em><b><font color=red><%:NOT SET%></font></b></em>';
 
 		}
 	});
 //]]></script>
+
 
 
 

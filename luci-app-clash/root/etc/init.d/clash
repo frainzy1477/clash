@@ -45,9 +45,9 @@ del_cron(){
 yml_change(){
 #===========================================================================================================================
 		mode=$(uci get clash.config.mode 2>/dev/null)
-		da_password=$(uci get clash.config.dashboard_password 2>/dev/null)
+		da_password=$(uci get clash.config.dash_pass 2>/dev/null)
 		proxy_port=$(uci get clash.config.proxy_port 2>/dev/null)
-		
+		dash_port=$(uci get clash.config.dash_port 2>/dev/null)
 if [ $mode -eq 1 ];  then
 
 		#sed -i "/dns:/i\#clash-openwrt" /etc/clash/config.yml
@@ -61,7 +61,7 @@ if [ $mode -eq 1 ];  then
 		#sed -i "4i\allow-lan: true" /etc/clash/config.yml
 		#sed -i "5i\mode: Rule" /etc/clash/config.yml
 		#sed -i "6i\log-level: info" /etc/clash/config.yml
-		#sed -i "7i\external-controller: 0.0.0.0:9090" /etc/clash/config.yml
+		#sed -i "7i\external-controller: 0.0.0.0:${dash_port}" /etc/clash/config.yml
 		#sed -i "8i\secret: '${da_password}'" /etc/clash/config.yml
 		#sed -i "9i\ " /etc/clash/config.yml
 		#sed -i "10i\ " /etc/clash/config.yml
@@ -92,7 +92,7 @@ if [ $mode -eq 1 ];  then
 		sed -i "4i\allow-lan: true" /etc/clash/config.yml
 		sed -i "5i\mode: Rule" /etc/clash/config.yml
 		sed -i "6i\log-level: info" /etc/clash/config.yml
-		sed -i "7i\external-controller: 0.0.0.0:9090" /etc/clash/config.yml
+		sed -i "7i\external-controller: 0.0.0.0:${dash_port}" /etc/clash/config.yml
 		sed -i "8i\secret: '${da_password}'" /etc/clash/config.yml
 		sed -i "9i\external-ui: "/usr/share/clash/dashboard"" /etc/clash/config.yml
 		sed -i "10i\ " /etc/clash/config.yml
@@ -110,14 +110,11 @@ else
 		sed -i "4i\allow-lan: true" /etc/clash/config.yml
 		sed -i "5i\mode: Rule" /etc/clash/config.yml
 		sed -i "6i\log-level: info" /etc/clash/config.yml
-		sed -i "7i\external-controller: 0.0.0.0:9090" /etc/clash/config.yml
+		sed -i "7i\external-controller: 0.0.0.0:${dash_port}" /etc/clash/config.yml
 		sed -i "8i\secret: '${da_password}'" /etc/clash/config.yml
 		sed -i "9i\external-ui: "/usr/share/clash/dashboard"" /etc/clash/config.yml
 		sed -i "10i\ " /etc/clash/config.yml
 		sed -i "11i\ " /etc/clash/config.yml
-		sed -i '/enhanced-mode:/ d' /etc/clash/config.yml
-		sed -i '/fake-ip-range:/ d' /etc/clash/config.yml
-		sed -i "/listen:/i\  enhanced-mode: redir-host" /etc/clash/config.yml
 		sed -i '/#=============/ d' /etc/clash/config.yml
 
 fi
@@ -130,44 +127,12 @@ fi
 yml_dns_change(){
 #=========================================================================================================================== 
 	   dns_port=`grep listen: /etc/clash/config.yml |awk -F ':' '{print $3}' |tr -cd "[0-9]"`
-	   enhance=`grep enhanced-mode: /etc/clash/config.yml |awk -F ' ' '{print $2}'`	
-
-	if [ $enhance == "redir-host" ]; then
 
 	   if [ $dns_port -eq 53 ]; then
 	          sed -i '/listen:/ d' /etc/clash/config.yml
 	          sed -i "/nameserver:/i\  listen: 0.0.0.0:7894" /etc/clash/config.yml
 
-		  dns_serve1=$(uci get dhcp.@dnsmasq[0].server 2>/dev/null)
-		  if [ $dns_serve1 ]; then
-			uci del dhcp.@dnsmasq[-1].server
-		  fi
-	          uci add_list dhcp.@dnsmasq[0].server=127.0.0.1#7894 >/dev/null 2>&1
-	          uci delete dhcp.@dnsmasq[0].resolvfile
-	          uci set dhcp.@dnsmasq[0].noresolv=1
-	          uci commit dhcp
-	    else
-		  dns_serve1=$(uci get dhcp.@dnsmasq[0].server 2>/dev/null)
-		  if [ $dns_serve1 ]; then
-			uci del dhcp.@dnsmasq[-1].server
-		  fi
-	          uci add_list dhcp.@dnsmasq[0].server=127.0.0.1#$dns_port >/dev/null 2>&1
-	          uci delete dhcp.@dnsmasq[0].resolvfile
-	          uci set dhcp.@dnsmasq[0].noresolv=1
-	          uci commit dhcp
 	   fi
-
-	else
-		dns_serve1=$(uci get dhcp.@dnsmasq[0].server 2>/dev/null)
-		if [ $dns_serve1 ]; then
-			uci del dhcp.@dnsmasq[-1].server
-		fi
-	        uci add_list dhcp.@dnsmasq[0].server=127.0.0.1#$dns_port >/dev/null 2>&1
-		uci set dhcp.@dnsmasq[0].resolvfile=/tmp/resolv.conf.auto
-		uci set dhcp.@dnsmasq[0].noresolv=0
-		uci commit dhcp
-
-	fi
 #=========================================================================================================================== 	   
 }
 
@@ -180,10 +145,10 @@ whitelist() {
 }
 
 rules(){
-#=========================================================================================================================== 
-		LAN_IP=$(uci get network.lan.ipaddr)	
+#===========================================================================================================================	
 		dns_port=`grep listen: /etc/clash/config.yml |awk -F ':' '{print $3}' |tr -cd "[0-9]"`
-		iptables -t nat -N clash               
+		iptables -t nat -N clash   
+		iptables -t nat -N clash_dns            
 		iptables -t nat -A clash -d 0.0.0.0/8 -j RETURN
 		iptables -t nat -A clash -d 10.0.0.0/8 -j RETURN
 		iptables -t nat -A clash -d 127.0.0.0/8 -j RETURN
@@ -193,21 +158,17 @@ rules(){
 		iptables -t nat -A clash -d 224.0.0.0/4 -j RETURN
 		iptables -t nat -A clash -d 240.0.0.0/4 -j RETURN		
 
-		iptables -t nat -N clash_dns
-
 		iptables -t nat -A clash -p tcp --dport 22 -j ACCEPT
 
+		iptables -t nat -A clash_dns -p udp -j REDIRECT --to-ports $dns_port
+      	        iptables -t nat -A clash_dns -p tcp -j REDIRECT --to-ports $dns_port
+
 		iptables -t nat -A clash -p tcp -j REDIRECT --to-ports $proxy_port
-		iptables -t nat -A clash -p udp -j REDIRECT --to-ports $proxy_port
+
+		iptables -t nat -I PREROUTING 1 -p tcp --dport 53 -j clash_dns
+        	iptables -t nat -I PREROUTING 1 -p udp --dport 53 -j clash_dns
 
 		iptables -t nat -A PREROUTING -p tcp -j clash
-		iptables -t nat -A PREROUTING -p udp -j clash
-
-		iptables -t nat -A PREROUTING -p tcp --dport 53 -d 198.19.0.0/24 -j clash_dns
-		iptables -t nat -A PREROUTING -p udp --dport 53 -d 198.19.0.0/24 -j clash_dns
-
-		iptables -t nat -A clash_dns -p udp --dport 53 -d 198.19.0.0/24 -j DNAT --to-destination $LAN_IP:$dns_port
-		iptables -t nat -A clash_dns -p tcp --dport 53 -d 198.19.0.0/24 -j DNAT --to-destination $LAN_IP:$dns_port
 		
 		
 #=========================================================================================================================== 
@@ -220,6 +181,7 @@ start_service(){
 enable=$(uci get clash.config.enable 2>/dev/null)
 
 if [ $enable -eq 1 ]; then
+
 
 	whitelist
 
@@ -246,16 +208,15 @@ if [ $enable -eq 1 ]; then
 	
 	if pidof clash >/dev/null; then
 		add_cron
-	else
-		echo "===============================$(date "+%Y-%m-%d %H:%M:%S")  ERROR OCCURED =====================================" >> /tmp/clash.log
-	fi
-						
-else
-
-		echo "===============================$(date "+%Y-%m-%d %H:%M:%S")  CLASH IS DISABLED =====================================" >> /tmp/clash.log
-			  
+		nohup /usr/share/clash/clash-watchdog.sh > /var/log/clash-watchdog.file 2>&1 &
 	
+	fi
+
+else
+	echo "===============================$(date "+%Y-%m-%d %H:%M:%S")  CLASH IS DISABLED =====================================" >> /tmp/clash.log
 fi
+
+
 #=========================================================================================================================== 
 }
 
@@ -268,7 +229,9 @@ stop_service(){
 		iptables -t nat -F clash_dns >/dev/null 2>&1
 		iptables -t nat -X clash_dns >/dev/null 2>&1
 		iptables -t nat -D PREROUTING -p tcp -j clash >/dev/null 2>&1
-		iptables -t nat -D PREROUTING -p udp -j clash >/dev/null 2>&1
+		iptables -t nat -D PREROUTING -p tcp -j clash_dns >/dev/null 2>&1
+
+		kill -9 $(ps | grep clash-watchdog.sh | grep -v grep | awk '{print $1}') >/dev/null 2>&1
 
 		kill -9 `pidof clash|sed "s/$//g"` 2>/dev/null
 
@@ -286,8 +249,6 @@ stop_service(){
 	
 	 	rm -rf /tmp/clash.log
 	
-	
-		echo "===============================$(date "+%Y-%m-%d %H:%M:%S")  CLASH STOPPED =====================================" >> /tmp/clash.log
 	
 #=========================================================================================================================== 	
 }
