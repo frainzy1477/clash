@@ -18,7 +18,13 @@ ifeq ($(ARCH),x86_64)
 	PKG_ARCH:=amd64
 endif
 ifeq ($(ARCH),arm)
-	PKG_ARCH:=armv6
+PKG_ARCH:=armv6
+  ifneq ($(BOARD),bcm53xx)
+	PKG_ARCH:=armv7
+  endif
+  ifeq ($(BOARD),kirkwood)
+	PKG_ARCH:=armv5
+  endif
 endif
 ifeq ($(ARCH),aarch64)
 	PKG_ARCH:=armv8
@@ -27,6 +33,7 @@ endif
 PKG_SOURCE:=clash-linux-$(PKG_ARCH)-v$(PKG_VERSION).gz
 PKG_SOURCE_URL:=https://github.com/Dreamacro/clash/releases/download/v$(PKG_VERSION)/
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+PKG_HASH:=skip
 
 include $(INCLUDE_DIR)/package.mk
 
