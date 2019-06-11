@@ -180,7 +180,7 @@ start_service(){
 
 		enable=$(uci get clash.config.enable 2>/dev/null)
 
-		size=`ls -l /etc/clash/config.yml|awk '{print $5;}'`
+		size=`ls -l /etc/clash/config.yml|awk '{print $5}'`
 
 
 if [ $enable -eq 1 ]; then
