@@ -51,7 +51,7 @@ yml_change(){
 if [ $mode -eq 1 ];  then
 
 		#sed -i "/dns:/i\#clash-openwrt" /etc/clash/config.yml
-        #sed -i "/#clash-openwrt/a\#=============" /etc/clash/config.yml
+                #sed -i "/#clash-openwrt/a\#=============" /etc/clash/config.yml
 		#sed -i '1,/#clash-openwrt/d' /etc/clash/config.yml
 		
 
@@ -81,7 +81,7 @@ if [ $mode -eq 1 ];  then
 		#fi	
 		
 		sed -i "/Proxy:/i\#clash-openwrt" /etc/clash/config.yml
-        sed -i "/#clash-openwrt/a\#=============" /etc/clash/config.yml
+                sed -i "/#clash-openwrt/a\#=============" /etc/clash/config.yml
 		sed -i '1,/#clash-openwrt/d' /etc/clash/config.yml		
 		mv /etc/clash/config.yml /etc/clash/dns.yml
 		cat /usr/share/clash/dns.yml /etc/clash/dns.yml > /etc/clash/config.yml 
@@ -102,7 +102,7 @@ if [ $mode -eq 1 ];  then
 else
 
 		sed -i "/dns:/i\#clash-openwrt" /etc/clash/config.yml
-        sed -i "/#clash-openwrt/a\#=============" /etc/clash/config.yml
+                sed -i "/#clash-openwrt/a\#=============" /etc/clash/config.yml
 		sed -i '1,/#clash-openwrt/d' /etc/clash/config.yml
 		sed -i "1i\port: 7890" /etc/clash/config.yml
 		sed -i "2i\socks-port: 7891" /etc/clash/config.yml
@@ -161,12 +161,12 @@ rules(){
 		iptables -t nat -A clash -p tcp --dport 22 -j ACCEPT
 
 		iptables -t nat -A clash_dns -p udp -j REDIRECT --to-ports $dns_port
-      	iptables -t nat -A clash_dns -p tcp -j REDIRECT --to-ports $dns_port
+      	        iptables -t nat -A clash_dns -p tcp -j REDIRECT --to-ports $dns_port
 
 		iptables -t nat -A clash -p tcp -j REDIRECT --to-ports $proxy_port
 
 		iptables -t nat -I PREROUTING 1 -p tcp --dport 53 -j clash_dns
-        iptables -t nat -I PREROUTING 1 -p udp --dport 53 -j clash_dns
+                iptables -t nat -I PREROUTING 1 -p udp --dport 53 -j clash_dns
 
 		iptables -t nat -A PREROUTING -p tcp -j clash
 		
