@@ -12,7 +12,10 @@ USE_PROCD=1
 
 revert_dns() {
 #=========================================================================================================================== 
-		uci del dhcp.@dnsmasq[-1].server
+		dns_serve1=$(uci get dhcp.@dnsmasq[0].server 2>/dev/null)
+	        if [ $dns_serve1 ]; then
+		   uci del dhcp.@dnsmasq[-1].server
+	        fi
 		uci set dhcp.@dnsmasq[0].resolvfile=/tmp/resolv.conf.auto
 		uci set dhcp.@dnsmasq[0].noresolv=0
 		uci commit dhcp
