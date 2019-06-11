@@ -10,11 +10,11 @@ enable=$(uci get clash.config.enable 2>/dev/null)
 clean_log(){
 	logrow=$(grep -c "" ${logfile})
 	logrow1=$(grep -c "" ${logfile1})
-	if [ $logrow -ge 300 ];then
+	if [ $logrow -ge 1000 ];then
 		cat /dev/null > ${logfile}
 		echo "$curtime Logs exceeded limit，cleaning logs now..！" >> ${logfile}
 	fi
-	if [ $logrow1 -ge 100 ];then
+	if [ $logrow1 -ge 500 ];then
 		cat /dev/null > ${logfile1}
 		echo "$curtime Logs exceeded limit，cleaning logs now..！" >> ${logfile}
 	fi
