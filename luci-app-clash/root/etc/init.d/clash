@@ -220,7 +220,7 @@ if [ $enable -eq 1 ]; then
 		fi
 		
 	else
-		echo "===============================$(date "+%Y-%m-%d %H:%M:%S")  PROBLEM WITH CONFIG.YML  =====================================" >> /tmp/clash.log
+		echo "===============================$(date "+%Y-%m-%d %H:%M:%S")  problem with config.yml,  config.yml is either empty or not found  =====================================" >> /tmp/clash.log
 
 
 	fi

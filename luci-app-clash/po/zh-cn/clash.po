@@ -31,6 +31,9 @@ msgstr "连接正常"
 msgid "TIMEOUT"
 msgstr "连接超时"
 
+msgid "NOT SET"
+msgstr "未设置"
+
 msgid "UNAVAILABLE"
 msgstr "无法访问"
 
@@ -52,8 +55,11 @@ msgstr "Clash控制面板"
 msgid "Yacd Dashboard"
 msgstr "Yacd控制面板"
 
+msgid "Client"
+msgstr "客户端"
+
 msgid "Clash Client"
-msgstr "Clash客户端"
+msgstr "客户端"
 
 msgid "Configuration"
 msgstr "配置文件"
@@ -76,9 +82,6 @@ msgstr "日志"
 msgid "Enable"
 msgstr "启用"
 
-msgid "Mode"
-msgstr "模式"
-
 msgid "Settings"
 msgstr "设置"
 
@@ -96,9 +99,6 @@ msgstr "每日服务器订阅更新时间"
 
 msgid "Select Mode"
 msgstr "选择模式"
-
-msgid "Do not enable if you do not know how to use it"
-msgstr "如果你不知道怎么使用，请别开了。"
 
 msgid "Enable or Disable mode selection"
 msgstr "启用或禁用选择增模式"
@@ -137,11 +137,8 @@ msgstr "更新GEOIP数据库"
 msgid "Upload Clash Configuration"
 msgstr "上传Clash配置"
 
-msgid ""
-"NB: Rename your config file to config.yml before upload. file will save to /"
-"etc/clash"
-msgstr ""
-"注意：上传之前，请将配置文件重命名为config.yml。文件将保存到 /etc/clash"
+msgid "NB: Rename your config file to config.yml before upload. file will save to /etc/clash"
+msgstr "注意：上传之前，请将配置文件重命名为config.yml。文件将保存到 /etc/clash"
 
 msgid "* Clash Redir Port"
 msgstr "* 转发端口"
@@ -155,8 +152,8 @@ msgstr "更新订阅配置"
 msgid "Update Configuration"
 msgstr "更新配置文件"
 
-msgid "After clash start running, wait a moment for servers to resolve,enjoy"
-msgstr "运行后，等待服务器传播"
+msgid "After clash start running, wait a moment for servers to resolve"
+msgstr "运行后，等待服务器传"
 
 msgid "Clash config redir-port"
 msgstr "转发端口"
@@ -166,10 +163,4 @@ msgstr "服务器订阅地址"
 
 msgid "Changes to config file must be made from source"
 msgstr "必须从源文件更改配置文件"
-
-msgid "Dashboard hostname is Your router local address. eg, 192.168.1.1"
-msgstr "管理页面主机名是您的路由器本地地址。例如，192.168.1.1"
-
-msgid "mode selection"
-msgstr "选择模式"
 
