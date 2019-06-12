@@ -42,3 +42,7 @@
 Clash for OpenWrt is released under the MIT License - see detailed [LICENSE](https://github.com/frainzy1477/clash/blob/rm/LICENSE) .
 
 IP Query / Website Access Check based on  knowledge from  [MyIP](https://github.com/SukkaW/MyIP)
+
+[Clash Dashboard](https://github.com/Dreamacro/clash-dashboard)
+
+[Yet Another Clash Dashboard](https://github.com/haishanh/yacd)
