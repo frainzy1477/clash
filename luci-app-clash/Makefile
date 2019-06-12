@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-clash
 PKG_VERSION:=0.16.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_MAINTAINER:=frainzy1477
 
 
@@ -50,19 +50,18 @@ define Package/$(PKG_NAME)/install
 	$(INSTALL_CONF) ./root/etc/config/clash $(1)/etc/config/clash
 	$(INSTALL_CONF) ./root/etc/clash/* $(1)/etc/clash/
 
-
+	$(INSTALL_BIN) ./root/usr/share/clash/clash-watchdog.sh $(1)/usr/share/clash/
 	$(INSTALL_BIN) ./root/usr/share/clash/chinaipset.sh $(1)/usr/share/clash/
 	$(INSTALL_BIN) ./root/usr/share/clash/clash.sh $(1)/usr/share/clash/
 	$(INSTALL_BIN) ./root/usr/share/clash/ipdb.sh $(1)/usr/share/clash/
 	$(INSTALL_BIN) ./root/usr/share/clash/dns.yml $(1)/usr/share/clash/
-	$(INSTALL_BIN) ./root/usr/share/clash/clash-watchdog.sh $(1)/usr/share/clash/
 	
 	$(INSTALL_BIN) ./root/usr/share/clash/web/* $(1)/usr/share/clash/web
 	$(INSTALL_BIN) ./root/usr/share/clash/dashboard/index.html $(1)/usr/share/clash/dashboard/
-	$(INSTALL_BIN) ./root/usr/share/clash/dashboard/main.7fa6738617874ea86872.css $(1)/usr/share/clash/dashboard/
+	$(INSTALL_BIN) ./root/usr/share/clash/dashboard/main.af6e720a4800cb90fc7a.css $(1)/usr/share/clash/dashboard/
 	$(INSTALL_BIN) ./root/usr/share/clash/dashboard/img/* $(1)/usr/share/clash/dashboard/img/
 	$(INSTALL_BIN) ./root/usr/share/clash/dashboard/js/* $(1)/usr/share/clash/dashboard/js/
-
+        
 	$(INSTALL_DATA) ./luasrc/controller/* $(1)/usr/lib/lua/luci/controller/
 	
 	$(INSTALL_DATA) ./luasrc/model/cbi/clash/* $(1)/usr/lib/lua/luci/model/cbi/clash/
