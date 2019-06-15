@@ -10,7 +10,7 @@ CRON_FILE="/etc/crontabs/root"
 
 USE_PROCD=1
 
-lan_ip=$(uci get network.lan.ipaddr 2>/dev/null)
+
 
 revert_dns() {
 #=========================================================================================================================== 
@@ -55,35 +55,6 @@ yml_change(){
 		dash_port=$(uci get clash.config.dash_port 2>/dev/null)
 if [ $mode -eq 1 ];  then
 
-		#sed -i "/dns:/i\#clash-openwrt" /etc/clash/config.yml
-                #sed -i "/#clash-openwrt/a\#=============" /etc/clash/config.yml
-		#sed -i '1,/#clash-openwrt/d' /etc/clash/config.yml
-		
-
-		#sed -i "1i\port: 7890" /etc/clash/config.yml
-		#sed -i "2i\socks-port: 7891" /etc/clash/config.yml
-		#sed -i "3i\redir-port: ${proxy_port}" /etc/clash/config.yml
-		#sed -i "4i\allow-lan: true" /etc/clash/config.yml
-		#sed -i "5i\mode: Rule" /etc/clash/config.yml
-		#sed -i "6i\log-level: info" /etc/clash/config.yml
-		#sed -i "7i\external-controller: 0.0.0.0:${dash_port}" /etc/clash/config.yml
-		#sed -i "8i\secret: '${da_password}'" /etc/clash/config.yml
-		#sed -i "9i\ " /etc/clash/config.yml
-		#sed -i "10i\ " /etc/clash/config.yml
-		#sed -i "11i\ " /etc/clash/config.yml
-		
-
-		#if [ "$(uci get clash.config.en_mode 2>/dev/null)" = "redns" ]; then
-		#	sed -i '/enhanced-mode:/ d' /etc/clash/config.yml
-		#	sed -i '/fake-ip-range:/ d' /etc/clash/config.yml
-		#	sed -i "/listen:/i\  enhanced-mode: redir-host" /etc/clash/config.yml 
-		#
-		#elif [ "$(uci get clash.config.en_mode 2>/dev/null)" = "fakeip" ]; then
-		#	sed -i '/enhanced-mode:/ d' /etc/clash/config.yml
-		#	sed -i '/fake-ip-range:/ d' /etc/clash/config.yml
-		#	sed -i "/listen:/i\  enhanced-mode: fake-ip" /etc/clash/config.yml
-		#	sed -i "/enhanced-mode: fake-ip/a\  fake-ip-range: 198.18.0.1/16" /etc/clash/config.yml	
-		#fi	
 		
 		sed -i "/Proxy:/i\#clash-openwrt" /etc/clash/config.yml
                 sed -i "/#clash-openwrt/a\#=============" /etc/clash/config.yml
@@ -162,6 +133,7 @@ EOF
 
 rules(){
 #===========================================================================================================================
+		lan_ip=$(uci get network.lan.ipaddr 2>/dev/null)
 		lan=$(uci get clash.config.proxylan 2>/dev/null)
 		dns_port=`grep listen: /etc/clash/config.yml |awk -F ':' '{print $3}' |tr -cd "[0-9]"`
 		iptables -t nat -N clash   
@@ -174,7 +146,8 @@ rules(){
 		iptables -t nat -A clash -d 192.168.0.0/16 -j RETURN
 		iptables -t nat -A clash -d 224.0.0.0/4 -j RETURN
 		iptables -t nat -A clash -d 240.0.0.0/4 -j RETURN		
-
+		iptables -t nat -A clash -d $lan_ip -j RETURN
+		
 		iptables -t nat -A clash -p tcp --dport 22 -j ACCEPT
 
 		iptables -t nat -A clash_dns -p udp -j REDIRECT --to-ports $dns_port
