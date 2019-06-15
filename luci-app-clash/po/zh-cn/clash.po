@@ -19,6 +19,9 @@ msgstr "如果启用，仅选择IP只不走代理"
 msgid "Bypass Lan List"
 msgstr "不走代理的IP列表"
 
+msgid "Do not enable both Proxy Lan IP & Bypass Lan IP at the same time"
+msgstr "不要同时启用走代理的LAN IP和不走代理的LAN IP"
+
 msgid "Selected IPs will not be proxied"
 msgstr "选择LAN IP只不走代理"
 

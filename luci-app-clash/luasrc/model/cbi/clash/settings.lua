@@ -46,11 +46,12 @@ o.write = function()
 end
 
 
+
 md = s:option(Flag, "proxylan", translate("Proxy Lan IP"))
 md.default = 1
 md.rmempty = false
-md.description = translate("If enabled only selected Ips below will be proxied")
-md:depends("rejectlan", 0)
+md.description = translate("Do not enable both Proxy Lan IP & Bypass Lan IP at the same time")
+
 
 o = s:option(DynamicList, "lan_ac_ips", translate("Proxy Lan List"))
 o.datatype = "ipaddr"
@@ -63,12 +64,12 @@ end)
 o:depends("proxylan", 1)
 
 
-
 md = s:option(Flag, "rejectlan", translate("Bypass Lan IP"))
 md.default = 1
 md.rmempty = false
-md.description = translate("If enabled selected Ips will not be proxied")
-md:depends("proxylan", 0)
+md.description = translate("Do not enable both Proxy Lan IP & Bypass Lan IP at the same time")
+
+
 
 o = s:option(DynamicList, "lan_ips", translate("Bypass Lan List"))
 o.datatype = "ipaddr"
