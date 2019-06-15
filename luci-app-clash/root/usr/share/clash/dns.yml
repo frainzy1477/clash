@@ -9,7 +9,7 @@ dns:
  enhanced-mode: redir-host
  #fake-ip-range: 198.18.0.1/16
  nameserver:
-  - 47.98.124.222  
+  - tls://dns.rubyfish.cn:853  
   - 101.132.183.99
   - 119.29.29.29 
   - 114.114.115.115    

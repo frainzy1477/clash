@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sleeptime=600
+sleeptime=300
 logfile="/tmp/clash.log"
 logfile1="/var/log/clash-watchdog.file"
 CLASH="/etc/clash/clash"
