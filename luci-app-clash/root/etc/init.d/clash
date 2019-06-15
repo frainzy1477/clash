@@ -131,10 +131,20 @@ EOF
 #===========================================================================================================================
 }
 
+reject_access() {
+#===========================================================================================================================
+lan_ac=$(uci get clash.config.lan_ips)
+	ipset -! -R <<-EOF
+		create clash_lan hash:net
+		$(for ip in $lan_ac; do echo "add clash_lan $ip"; done)
+EOF
+#===========================================================================================================================
+}
 
 rules(){
 #===========================================================================================================================
 		lan_ip=$(uci get network.lan.ipaddr 2>/dev/null)
+		lanac=$(uci get clash.config.rejectlan 2>/dev/null)
 		lan=$(uci get clash.config.proxylan 2>/dev/null)
 		dns_port=`grep listen: /etc/clash/config.yml |awk -F ':' '{print $3}' |tr -cd "[0-9]"`
 		iptables -t nat -N clash   
@@ -150,14 +160,18 @@ rules(){
 		iptables -t nat -A clash -d $lan_ip -j RETURN
 		
 		iptables -t nat -A clash -p tcp --dport 22 -j ACCEPT
-
+		
+		if [ $lanac -eq 1 ]; then
+			iptables -t nat -A clash -p tcp -m set --match-set clash_lan src -j RETURN
+		fi
+		
 		iptables -t nat -A clash_dns -p udp -j REDIRECT --to-ports $dns_port
       	        iptables -t nat -A clash_dns -p tcp -j REDIRECT --to-ports $dns_port
 
-		if [ $lan -eq 0 ]; then
-			iptables -t nat -A clash -p tcp -j REDIRECT --to-ports $proxy_port
-		else
+		if [ $lan -eq 1 ]; then
 			iptables -t nat -A clash -p tcp -m set --match-set clash_lan_ac src -j REDIRECT --to-ports $proxy_port
+		else
+			iptables -t nat -A clash -p tcp -j REDIRECT --to-ports $proxy_port
 		fi
 
 
@@ -178,16 +192,18 @@ start_service(){
 enable=$(uci get clash.config.enable 2>/dev/null)
 size=`ls -l /etc/clash/config.yml|awk '{print $5}'`
 lan=$(uci get clash.config.proxylan 2>/dev/null)
-
+lanac=$(uci get clash.config.rejectlan 2>/dev/null)
 if [ $enable -eq 1 ]; then
 
 if [ $size -ne 0 ]; then
 
 		whitelist
 		if [ $lan -eq 1 ]; then
-		   access
+		    access
 		fi
-
+		if [ $lanac -eq 1 ]; then
+			reject_access
+		fi
 
 		proxy_port=$(uci get clash.config.proxy_port 2>/dev/null)
 		
@@ -241,8 +257,10 @@ stop_service(){
 		iptables -t nat -X clash_dns >/dev/null 2>&1
 		iptables -t nat -D PREROUTING -p tcp -j clash >/dev/null 2>&1
 		iptables -t nat -D PREROUTING -p tcp -j clash_dns >/dev/null 2>&1
+		
 		ipset -! flush clash_lan_ac >/dev/null 2>&1
-	
+		ipset -! flush clash_lan >/dev/null 2>&1
+		
 		kill -9 $(ps | grep clash-watchdog.sh | grep -v grep | awk '{print $1}') >/dev/null 2>&1
 
 		kill -9 `pidof clash|sed "s/$//g"` 2>/dev/null

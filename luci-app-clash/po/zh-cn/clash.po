@@ -1,14 +1,26 @@
-msgid "Enable Lan IP"
-msgstr "启用局域网IP"
+msgid "Proxy Lan IP"
+msgstr "走代理的局域网IP"
 
 msgid "If enabled only selected Ips below will be proxied"
 msgstr "如果启用，仅选择IP只走代理"
 
 msgid "Proxy Lan List"
-msgstr "代理局域网IP列表"
+msgstr "走代理的IP列表"
 
 msgid "Only selected IPs will be proxied"
 msgstr "选择IP只走代理"
+
+msgid "Bypass Lan IP"
+msgstr "不走代理的局域网IP"
+
+msgid "If enabled selected Ips will not be proxied"
+msgstr "如果启用，仅选择IP只不走代理"
+
+msgid "Bypass Lan List"
+msgstr "不走代理的IP列表"
+
+msgid "Selected IPs will not be proxied"
+msgstr "选择LAN IP只不走代理"
 
 msgid "Enabling Custom DNS will Overwrite your config.yml dns section"
 msgstr "启用自定义DNS会覆盖config.yml dns"

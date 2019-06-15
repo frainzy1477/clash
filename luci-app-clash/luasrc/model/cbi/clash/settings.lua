@@ -12,21 +12,6 @@ s = m:section(TypedSection, "clash")
 s.anonymous = true
 s.addremove=false
 
-md = s:option(Flag, "proxylan", translate("Enable Lan IP"))
-md.default = 1
-md.rmempty = false
-md.description = translate("If enabled only selected Ips below will be proxied")
-
-o = s:option(DynamicList, "lan_ac_ips", translate("Proxy Lan List"))
-o.datatype = "ipaddr"
-o.description = translate("Only selected IPs will be proxied")
-luci.ip.neighbors({ family = 4 }, function(entry)
-       if entry.reachable then
-               o:value(entry.dest:string())
-       end
-end)
-o:depends("proxylan", 1)
-
 
 o = s:option(Value, "proxy_port")
 o.title = translate("* Clash Redir Port")
@@ -59,6 +44,41 @@ o.write = function()
   SYS.call("bash /usr/share/clash/ipdb.sh >>/tmp/clash.log 2>&1 &")
   HTTP.redirect(DISP.build_url("admin", "services", "clash","settings"))
 end
+
+
+md = s:option(Flag, "proxylan", translate("Proxy Lan IP"))
+md.default = 1
+md.rmempty = false
+md.description = translate("If enabled only selected Ips below will be proxied")
+md:depends("rejectlan", 0)
+
+o = s:option(DynamicList, "lan_ac_ips", translate("Proxy Lan List"))
+o.datatype = "ipaddr"
+o.description = translate("Only selected IPs will be proxied")
+luci.ip.neighbors({ family = 4 }, function(entry)
+       if entry.reachable then
+               o:value(entry.dest:string())
+       end
+end)
+o:depends("proxylan", 1)
+
+
+
+md = s:option(Flag, "rejectlan", translate("Bypass Lan IP"))
+md.default = 1
+md.rmempty = false
+md.description = translate("If enabled selected Ips will not be proxied")
+md:depends("proxylan", 0)
+
+o = s:option(DynamicList, "lan_ips", translate("Bypass Lan List"))
+o.datatype = "ipaddr"
+o.description = translate("Selected IPs will not be proxied")
+luci.ip.neighbors({ family = 4 }, function(entry)
+       if entry.reachable then
+               o:value(entry.dest:string())
+       end
+end)
+o:depends("rejectlan", 1)
 
 
 md = s:option(Flag, "mode", translate("Custom DNS"))
