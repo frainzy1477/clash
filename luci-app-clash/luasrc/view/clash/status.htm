@@ -19,8 +19,8 @@
 <fieldset class="cbi-section">
 	<table width="100%" cellspacing="10">
 	
-	    <tr><td class="align-left" width="50%"><span><%:Global IP%> </span>&nbsp;:&nbsp;<span id="ip-gb"></span> <span id="ip-geo"></span></td>  <td class="align-right">  <span><%:Google%></span>&nbsp;:&nbsp;<span id="_google"><em><%:Collecting data...%></em></span></td><td class="align-right"><%:Youtube%> </span>&nbsp;:&nbsp;<span id="_youtube"><em><%:Collecting data...%></em></span></td></tr>    
-		<tr><td class="align-left" width="50%"><span><%:Domestic IP%> </span>&nbsp;:&nbsp;<span id="d-ip"></span></td>  <td class="align-right"> <span><%:Baidu%></span>&nbsp;:&nbsp;<span  id="_baidu"><em><%:Collecting data...%></em></span></td> <td class="align-right"><%:Taobao%> </span>&nbsp;:&nbsp;<span id="_taobao"><em><%:Collecting data...%></em></span></td></tr>
+	    <tr><td class="align-left" width="50%"><span><%:Global IP%> </span>&nbsp;:&nbsp;<span id="ip-gb"></span> <span id="ip-geo"></span></td>  <td class="align-right" width="25%">  <span><%:Google%></span>&nbsp;:&nbsp;<span id="_google"><em><%:Collecting data...%></em></span></td><td class="align-right"><%:Youtube%> </span>&nbsp;:&nbsp;<span id="_youtube"><em><%:Collecting data...%></em></span></td></tr>    
+		<tr><td class="align-left" width="50%"><span><%:Domestic IP%> </span>&nbsp;:&nbsp;<span id="d-ip"></span></td>  <td class="align-right" width="25%"> <span><%:Baidu%></span>&nbsp;:&nbsp;<span  id="_baidu"><em><%:Collecting data...%></em></span></td> <td class="align-right"><%:Taobao%> </span>&nbsp;:&nbsp;<span id="_taobao"><em><%:Collecting data...%></em></span></td></tr>
 
 		
 	</table>
@@ -79,7 +79,7 @@ var HTTP = {
 		let timeout = setTimeout(() => {
 			img.onerror = img.onload = null;
 			img = null;
-			document.getElementById(cbElID).innerHTML = '<em><b><font color=red><%:NOACCESS%></font></b></em>'
+			document.getElementById(cbElID).innerHTML = '<em><b><font color=red><%:NO ACCESS%></font></b></em>'
 		}, 1000);
 		img.onerror = () => {
 			clearTimeout(timeout);

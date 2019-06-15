@@ -122,12 +122,13 @@ whitelist() {
 
 
 access() {
+#===========================================================================================================================
 lan_ac_ips=$(uci get clash.config.lan_ac_ips)
 	ipset -! -R <<-EOF
 		create clash_lan_ac hash:net
 		$(for ip in $lan_ac_ips; do echo "add clash_lan_ac $ip"; done)
 EOF
-
+#===========================================================================================================================
 }
 
 
@@ -240,7 +241,7 @@ stop_service(){
 		iptables -t nat -X clash_dns >/dev/null 2>&1
 		iptables -t nat -D PREROUTING -p tcp -j clash >/dev/null 2>&1
 		iptables -t nat -D PREROUTING -p tcp -j clash_dns >/dev/null 2>&1
-		ipset -! flush clash_lan_ac
+		ipset -! flush clash_lan_ac >/dev/null 2>&1
 	
 		kill -9 $(ps | grep clash-watchdog.sh | grep -v grep | awk '{print $1}') >/dev/null 2>&1
 

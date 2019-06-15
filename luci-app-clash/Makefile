@@ -1,8 +1,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-clash
-PKG_VERSION:=0.16.0
-PKG_RELEASE:=2
+PKG_VERSION:=0.17.0
+PKG_RELEASE:=1
 PKG_MAINTAINER:=frainzy1477
 
 
@@ -19,7 +19,7 @@ define Package/luci-app-clash
 endef
 
 define Package/luci-app-clash/description
-	LuCI configuration for clash.
+	LuCI configuration for clash
 endef
 
 define Build/Prepare

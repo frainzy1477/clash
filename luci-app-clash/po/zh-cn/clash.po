@@ -46,7 +46,7 @@ msgstr "连接超时"
 msgid "NOT SET"
 msgstr "未设置"
 
-msgid "NOACCESS"
+msgid "NO ACCESS"
 msgstr "无法访问"
 
 msgid "Domestic IP"
