@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sleeptime=60
+sleeptime=600
 logfile="/tmp/clash.log"
 logfile1="/var/log/clash-watchdog.file"
 CLASH="/etc/clash/clash"
@@ -16,7 +16,7 @@ clean_log(){
 	fi
 	if [ $logrow1 -ge 500 ];then
 		cat /dev/null > ${logfile1}
-		echo "$curtime Logs exceeded limit，cleaning logs now..！" >> ${logfile}
+		#echo "$curtime Logs exceeded limit，cleaning logs now..！" >> ${logfile}
 	fi
 
 }

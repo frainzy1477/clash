@@ -12,6 +12,21 @@ s = m:section(TypedSection, "clash")
 s.anonymous = true
 s.addremove=false
 
+md = s:option(Flag, "proxylan", translate("Enable Lan IP"))
+md.default = 1
+md.rmempty = false
+md.description = translate("If enabled only selected Ips below will be proxied")
+
+o = s:option(DynamicList, "lan_ac_ips", translate("Proxy Lan List"))
+o.datatype = "ipaddr"
+o.description = translate("Only selected IPs will be proxied")
+luci.ip.neighbors({ family = 4 }, function(entry)
+       if entry.reachable then
+               o:value(entry.dest:string())
+       end
+end)
+o:depends("proxylan", 1)
+
 
 o = s:option(Value, "proxy_port")
 o.title = translate("* Clash Redir Port")
@@ -32,6 +47,7 @@ o.title = translate("Dashboard Secret")
 o.default = 123456
 o.rmempty = false
 o.description = translate("Dashboard Secret")
+
 
 update_time = SYS.exec("ls -l --full-time /etc/clash/Country.mmdb|awk '{print $6,$7;}'")
 o = s:option(Button,"update",translate("Update GEOIP Database")) 
