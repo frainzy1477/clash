@@ -163,10 +163,12 @@ rules(){
 		
 		if [ $lanac -eq 1 ]; then
 			iptables -t nat -A clash -p tcp -m set --match-set clash_lan src -j RETURN
+			iptables -t nat -A clash -p tcp -j REDIRECT --to-ports $proxy_port
 		fi
 		
 		iptables -t nat -A clash_dns -p udp -j REDIRECT --to-ports $dns_port
       	        iptables -t nat -A clash_dns -p tcp -j REDIRECT --to-ports $dns_port
+				
 
 		if [ $lan -eq 1 ]; then
 			iptables -t nat -A clash -p tcp -m set --match-set clash_lan_ac src -j REDIRECT --to-ports $proxy_port
@@ -198,11 +200,11 @@ if [ $enable -eq 1 ]; then
 if [ $size -ne 0 ]; then
 
 		whitelist
-		if [ $lan -eq 1 ]; then
-		    access
+		if [ $lan ]; then
+		    access >/dev/null 2>&1
 		fi
-		if [ $lanac -eq 1 ]; then
-			reject_access
+		if [ $lanac ]; then
+			reject_access >/dev/null 2>&1
 		fi
 
 		proxy_port=$(uci get clash.config.proxy_port 2>/dev/null)
@@ -219,7 +221,7 @@ if [ $size -ne 0 ]; then
 		uci commit firewall	
 		/etc/init.d/firewall restart >/dev/null 2>&1
 			
-		rules
+		rules >/dev/null 2>&1
 		
 		killall -1 dnsmasq
 		

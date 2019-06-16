@@ -33,6 +33,22 @@ o.default = 123456
 o.rmempty = false
 o.description = translate("Dashboard Secret")
 
+md = s:option(Flag, "proxylan", translate("Proxy Lan IP"))
+md.default = 1
+md.rmempty = false
+md.description = translate("Only selected IPs will be proxied if enabled")
+md:depends("rejectlan", 0)
+
+o = s:option(DynamicList, "lan_ac_ips", translate("Proxy Lan List"))
+o.datatype = "ipaddr"
+o.description = translate("Only selected IPs will be proxied")
+luci.ip.neighbors({ family = 4 }, function(entry)
+       if entry.reachable then
+               o:value(entry.dest:string())
+       end
+end)
+o:depends("proxylan", 1)
+
 
 update_time = SYS.exec("ls -l --full-time /etc/clash/Country.mmdb|awk '{print $6,$7;}'")
 o = s:option(Button,"update",translate("Update GEOIP Database")) 
@@ -47,29 +63,11 @@ end
 
 
 
-md = s:option(Flag, "proxylan", translate("Proxy Lan IP"))
-md.default = 1
-md.rmempty = false
-md.description = translate("Do not enable both Proxy Lan IP & Bypass Lan IP at the same time")
-
-
-o = s:option(DynamicList, "lan_ac_ips", translate("Proxy Lan List"))
-o.datatype = "ipaddr"
-o.description = translate("Only selected IPs will be proxied")
-luci.ip.neighbors({ family = 4 }, function(entry)
-       if entry.reachable then
-               o:value(entry.dest:string())
-       end
-end)
-o:depends("proxylan", 1)
-
-
 md = s:option(Flag, "rejectlan", translate("Bypass Lan IP"))
 md.default = 1
 md.rmempty = false
-md.description = translate("Do not enable both Proxy Lan IP & Bypass Lan IP at the same time")
-
-
+md.description = translate("Selected IPs will not be proxied if enabled")
+md:depends("proxylan", 0)
 
 o = s:option(DynamicList, "lan_ips", translate("Bypass Lan List"))
 o.datatype = "ipaddr"
