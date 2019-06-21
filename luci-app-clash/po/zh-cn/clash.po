@@ -1,3 +1,9 @@
+msgid "DNS Forwarding"
+msgstr "DNS转发"
+
+msgid "Enabling will set custom DNS forwarder in DHCP and DNS Settings"
+msgstr "启用自定义DNS转发"
+
 msgid "Proxy Lan IP"
 msgstr "走代理的局域网IP"
 

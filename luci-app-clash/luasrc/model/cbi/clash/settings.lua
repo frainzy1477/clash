@@ -79,6 +79,11 @@ luci.ip.neighbors({ family = 4 }, function(entry)
 end)
 o:depends("rejectlan", 1)
 
+y = s:option(Flag, "dnsforwader", translate("DNS Forwarding"))
+y.default = 1
+y.rmempty = false
+y.description = translate("Enabling will set custom DNS forwarder in DHCP and DNS Settings")
+
 
 md = s:option(Flag, "mode", translate("Custom DNS"))
 md.default = 1
