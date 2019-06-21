@@ -39,6 +39,13 @@
 - bash
 - coreutils-nohup
 
+## Clash on Other Platforms
+
+- [Clash for Windows](https://github.com/Fndroid/clash_for_windows_pkg/releases) : A Windows GUI based on Clash
+- [clashX](https://github.com/yichengchen/clashX) : A rule based custom proxy with GUI for Mac base on clash
+- [ClashA](https://github.com/ccg2018/ClashA/tree/master) : An Android GUI for Clash
+- [KoolClash OpenWrt/LEDE](https://github.com/SukkaW/Koolshare-Clash/tree/master) : A rule based custom proxy for Koolshare OpenWrt/LEDE based on Clash.
+
 ## License
 
 Clash for OpenWrt is released under the MIT License - see detailed [LICENSE](https://github.com/frainzy1477/clash/blob/rm/LICENSE) .
