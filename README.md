@@ -31,6 +31,7 @@
 - IP Query / Website Access Check
 - Proxy Lan IP(Client IP) that go through Proxy
 - Bypass Lan IP(Client IP) that can't go through Proxy
+- DNS Forwarding
 
 ## Dependency
 
