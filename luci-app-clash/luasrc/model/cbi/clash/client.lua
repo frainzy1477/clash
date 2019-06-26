@@ -6,17 +6,36 @@ local DISP = require "luci.dispatcher"
 local UTIL = require "luci.util"
 
 
-m = Map("clash", translate("Clash Client"))
-m:section(SimpleSection).template  = "clash/status"
+m = Map("clash")
 s = m:section(TypedSection, "clash")
 s.anonymous = true
 
 
 o = s:option( Flag, "enable")
-o.title = translate("Enable Clash")
+o.title = translate("Enable")
 o.default = 0
 o.rmempty = false
-o.description = translate("After clash start running, wait a moment for servers to resolve,enjoy")
+o.description = translate("After clash start running, wait a moment for servers to resolve")
+
+o = s:option(Value, "proxy_port")
+o.title = translate("Redir Port")
+o.default = 7892
+o.datatype = "port"
+o.rmempty = false
+o.description = translate("Redir Port")
+
+o = s:option(Value, "dash_port")
+o.title = translate("Dashboard Port")
+o.default = 9090
+o.datatype = "port"
+o.rmempty = false
+o.description = translate("Dashboard Port")
+
+o = s:option(Value, "dash_pass")
+o.title = translate("Dashboard Secret")
+o.default = 123456
+o.rmempty = false
+o.description = translate("Dashboard Secret")
 
 
 o = s:option(Flag, "auto_update", translate("Auto Update"))
@@ -44,7 +63,7 @@ o.inputstyle = "reload"
 o.write = function()
   os.execute("mv /etc/clash/config.yml /etc/clash/config.bak")
   SYS.call("bash /usr/share/clash/clash.sh >>/tmp/clash.log 2>&1 &")
-  HTTP.redirect(DISP.build_url("admin", "services", "clash"))
+  HTTP.redirect(DISP.build_url("admin", "services", "clash", "client"))
 end
 
 

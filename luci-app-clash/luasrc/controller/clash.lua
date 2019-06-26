@@ -6,12 +6,14 @@ function index()
 	end
 
 
-	entry({"admin", "services", "clash"},alias("admin", "services", "clash", "client"), _("Clash"), 60).dependent = true
-	entry({"admin", "services", "clash", "client"},cbi("clash/client"),_("Clash Client"), 10).leaf = true
-	entry({"admin", "services", "clash", "settings"},cbi("clash/settings"),_("Settings"), 20).leaf = true
-	entry({"admin", "services", "clash", "config"},cbi("clash/config"),_("Config"), 30).leaf = true
+	entry({"admin", "services", "clash"},alias("admin", "services", "clash", "overview"), _("Clash"), 60).dependent = true
+	entry({"admin", "services", "clash", "overview"},cbi("clash/overview"),_("Overview"), 10).leaf = true
+	entry({"admin", "services", "clash", "client"},cbi("clash/client"),_("Client"), 20).leaf = true
+	entry({"admin", "services", "clash", "settings"},cbi("clash/settings"),_("Settings"), 30).leaf = true
+	entry({"admin", "services", "clash", "config"},cbi("clash/config"),_("Config"), 40).leaf = true
 	entry({"admin","services","clash","status"},call("action_status")).leaf=true
-	entry({"admin", "services", "clash", "log"},cbi("clash/log"),_("Logs"), 40).leaf = true
+	entry({"admin", "services", "clash", "log"},cbi("clash/log"),_("Logs"), 50).leaf = true
+	entry({"admin","services","clash","check_status"},call("check_status")).leaf=true
 
 	
 end
@@ -35,7 +37,27 @@ local function localip()
 	return luci.sys.exec("uci get network.lan.ipaddr")
 end
 
+local function check_version()
+	return luci.sys.exec("sh /usr/share/clash/check_version.sh")
+end
 
+local function current_version()
+	return luci.sys.exec("sed -n 1p /usr/share/clash/clash_version")
+end
+
+local function new_version()
+	return luci.sys.exec("sed -n 1p /usr/share/clash/new_version")
+end
+
+function check_status()
+	luci.http.prepare_content("application/json")
+	luci.http.write_json({
+		check_version = check_version(),
+		current_version = current_version(),
+		new_version = new_version()
+
+	})
+end
 function action_status()
 	luci.http.prepare_content("application/json")
 	luci.http.write_json({
@@ -43,7 +65,10 @@ function action_status()
 		clash = is_running(),
 		localip = localip(),
 		dash_port = dash_port(),
+		current_version = current_version(),
+		new_version = new_version(),
 		dash_pass = dash_pass()
 
 	})
 end
+

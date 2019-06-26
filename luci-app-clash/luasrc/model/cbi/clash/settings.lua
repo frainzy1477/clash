@@ -7,37 +7,20 @@ local UTIL = require "luci.util"
 
 
 
-m = Map("clash", translate("Settings"))
+m = Map("clash")
 s = m:section(TypedSection, "clash")
 s.anonymous = true
 s.addremove=false
 
 
-o = s:option(Value, "proxy_port")
-o.title = translate("* Clash Redir Port")
-o.default = 7892
-o.datatype = "port"
-o.rmempty = false
-o.description = translate("Clash config redir-port")
 
-o = s:option(Value, "dash_port")
-o.title = translate("Dashboard Port")
-o.default = 9090
-o.datatype = "port"
-o.rmempty = false
-o.description = translate("Dashboard Port")
-
-o = s:option(Value, "dash_pass")
-o.title = translate("Dashboard Secret")
-o.default = 123456
-o.rmempty = false
-o.description = translate("Dashboard Secret")
 
 md = s:option(Flag, "proxylan", translate("Proxy Lan IP"))
 md.default = 1
 md.rmempty = false
 md.description = translate("Only selected IPs will be proxied if enabled")
 md:depends("rejectlan", 0)
+
 
 o = s:option(DynamicList, "lan_ac_ips", translate("Proxy Lan List"))
 o.datatype = "ipaddr"
@@ -63,11 +46,13 @@ end
 
 
 
+
 md = s:option(Flag, "rejectlan", translate("Bypass Lan IP"))
 md.default = 1
 md.rmempty = false
 md.description = translate("Selected IPs will not be proxied if enabled")
 md:depends("proxylan", 0)
+
 
 o = s:option(DynamicList, "lan_ips", translate("Bypass Lan List"))
 o.datatype = "ipaddr"
@@ -83,6 +68,7 @@ y = s:option(Flag, "dnsforwader", translate("DNS Forwarding"))
 y.default = 1
 y.rmempty = false
 y.description = translate("Enabling will set custom DNS forwarder in DHCP and DNS Settings")
+
 
 
 md = s:option(Flag, "mode", translate("Custom DNS"))
@@ -107,4 +93,5 @@ o.description = translate("Please modify the file here.")
 o:depends("mode", 1)
 
 return m
+
 

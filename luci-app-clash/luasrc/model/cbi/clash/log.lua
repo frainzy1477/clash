@@ -5,7 +5,12 @@ local HTTP = require "luci.http"
 local DISP = require "luci.dispatcher"
 local UTIL = require "luci.util"
 
-m = Map("clash", translate("logs"))
+ful = SimpleForm("upload", nil)
+ful.reset = false
+ful.submit = false
+
+
+m = Map("clash")
 s = m:section(TypedSection, "clash")
 s.anonymous = true
 s.addremove=false
@@ -30,4 +35,4 @@ o.write = function()
   HTTP.redirect(DISP.build_url("admin", "services", "clash", "log"))
 end
 
-return m
+return m, ful

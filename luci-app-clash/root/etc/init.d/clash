@@ -10,39 +10,37 @@ CRON_FILE="/etc/crontabs/root"
 
 USE_PROCD=1
 
-
-
 revert_dns() {
 #=========================================================================================================================== 
-		dns_serve1=$(uci get dhcp.@dnsmasq[0].server 2>/dev/null)
-	        if [ $dns_serve1 ]; then
-		   uci del dhcp.@dnsmasq[-1].server
-	        fi
-		uci set dhcp.@dnsmasq[0].resolvfile=/tmp/resolv.conf.auto
-		uci set dhcp.@dnsmasq[0].noresolv=0
-		uci commit dhcp
+	dns_serve1=$(uci get dhcp.@dnsmasq[0].server 2>/dev/null)
+	if [ $dns_serve1 ]; then
+		uci del dhcp.@dnsmasq[-1].server
+	fi
+	uci set dhcp.@dnsmasq[0].resolvfile=/tmp/resolv.conf.auto
+	uci set dhcp.@dnsmasq[0].noresolv=0
+	uci commit dhcp
 #=========================================================================================================================== 	
 }
 
 add_cron(){
 #=========================================================================================================================== 
-		sed -i '/clash.log/d' $CRON_FILE
-		echo '0 0 * * 0 echo "" > /tmp/clash.log' >> $CRON_FILE
-		[ -n "$(grep -w "/usr/share/clash/clash.sh" $CRON_FILE)" ] && sed -i '/\/usr\/share\/clash\/clash.sh/d' $CRON_FILE
-		auto=$(uci get clash.config.auto_update 2>/dev/null)
-		if [ $auto -eq 1 ]; then
-		[ -z "$(grep -w "/usr/share/clash/clash.sh" $CRON_FILE)" ] && echo "0 $(uci get clash.config.auto_update_time 2>/dev/null) * * * /usr/share/clash/clash.sh" >> $CRON_FILE
-		[ -z "$(grep -w "/etc/init.d/clash" $CRON_FILE)" ] && echo "05 0 * * * /etc/init.d/clash restart" >> $CRON_FILE
-		fi
-		crontab $CRON_FILE
+	sed -i '/clash.log/d' $CRON_FILE
+	echo '0 0 * * 0 echo "" > /tmp/clash.log' >> $CRON_FILE
+	[ -n "$(grep -w "/usr/share/clash/clash.sh" $CRON_FILE)" ] && sed -i '/\/usr\/share\/clash\/clash.sh/d' $CRON_FILE
+	auto=$(uci get clash.config.auto_update 2>/dev/null)
+	if [ $auto -eq 1 ]; then
+	[ -z "$(grep -w "/usr/share/clash/clash.sh" $CRON_FILE)" ] && echo "0 $(uci get clash.config.auto_update_time 2>/dev/null) * * * /usr/share/clash/clash.sh" >> $CRON_FILE
+	[ -z "$(grep -w "/etc/init.d/clash" $CRON_FILE)" ] && echo "05 0 * * * /etc/init.d/clash restart" >> $CRON_FILE
+	fi
+	crontab $CRON_FILE
 #=========================================================================================================================== 	
 }
 
 del_cron(){
 #=========================================================================================================================== 
-		sed -i '/clash/d' $CRON_FILE
-		sed -i '/clash.log/d' $CRON_FILE
-		/etc/init.d/cron restart
+	sed -i '/clash/d' $CRON_FILE
+	sed -i '/clash.log/d' $CRON_FILE
+	/etc/init.d/cron restart
 #=========================================================================================================================== 	
 }
 
@@ -53,11 +51,10 @@ yml_change(){
 		da_password=$(uci get clash.config.dash_pass 2>/dev/null)
 		proxy_port=$(uci get clash.config.proxy_port 2>/dev/null)
 		dash_port=$(uci get clash.config.dash_port 2>/dev/null)
-if [ $mode -eq 1 ];  then
-
+if [ $mode -eq 1 ];  then	
 		
 		sed -i "/Proxy:/i\#clash-openwrt" /etc/clash/config.yml
-                sed -i "/#clash-openwrt/a\#=============" /etc/clash/config.yml
+        	sed -i "/#clash-openwrt/a\#=============" /etc/clash/config.yml
 		sed -i '1,/#clash-openwrt/d' /etc/clash/config.yml		
 		mv /etc/clash/config.yml /etc/clash/dns.yml
 		cat /usr/share/clash/dns.yml /etc/clash/dns.yml > /etc/clash/config.yml 
@@ -78,7 +75,7 @@ if [ $mode -eq 1 ];  then
 else
 
 		sed -i "/dns:/i\#clash-openwrt" /etc/clash/config.yml
-                sed -i "/#clash-openwrt/a\#=============" /etc/clash/config.yml
+        	sed -i "/#clash-openwrt/a\#=============" /etc/clash/config.yml
 		sed -i '1,/#clash-openwrt/d' /etc/clash/config.yml
 		sed -i "1i\port: 7890" /etc/clash/config.yml
 		sed -i "2i\socks-port: 7891" /etc/clash/config.yml
@@ -129,30 +126,23 @@ yml_dns_change(){
 	          uci delete dhcp.@dnsmasq[0].resolvfile
 	          uci set dhcp.@dnsmasq[0].noresolv=1
 	          uci commit dhcp
-	    fi
+	   fi
 	fi
-
 #=========================================================================================================================== 	   
 }
 
-
-
-whitelist() {
-#=========================================================================================================================== 
-	(/usr/share/clash/chinaipset.sh && sleep 2 >/dev/null 2>&1) &
-#=========================================================================================================================== 	
-}
 
 
 access() {
 #===========================================================================================================================
 lan_ac_ips=$(uci get clash.config.lan_ac_ips)
 	ipset -! -R <<-EOF
-		create clash_lan_ac hash:net
-		$(for ip in $lan_ac_ips; do echo "add clash_lan_ac $ip"; done)
+	create clash_lan_ac hash:net
+	$(for ip in $lan_ac_ips; do echo "add clash_lan_ac $ip"; done)
 EOF
 #===========================================================================================================================
 }
+
 
 reject_access() {
 #===========================================================================================================================
@@ -163,6 +153,7 @@ lan_ac=$(uci get clash.config.lan_ips)
 EOF
 #===========================================================================================================================
 }
+
 
 rules(){
 #===========================================================================================================================
@@ -181,19 +172,16 @@ rules(){
 		iptables -t nat -A clash -d 224.0.0.0/4 -j RETURN
 		iptables -t nat -A clash -d 240.0.0.0/4 -j RETURN		
 		iptables -t nat -A clash -d $lan_ip -j RETURN
-		
+
 		iptables -t nat -A clash -p tcp --dport 22 -j ACCEPT
-		
+
+		iptables -t nat -A clash_dns -p udp -j REDIRECT --to-ports $dns_port
+      	        iptables -t nat -A clash_dns -p tcp -j REDIRECT --to-ports $dns_port
+
 		if [ $lanac -eq 1 ]; then
 			iptables -t nat -A clash -p tcp -m set --match-set clash_lan src -j RETURN
 			iptables -t nat -A clash -p tcp -j REDIRECT --to-ports $proxy_port
-		fi
-		
-		iptables -t nat -A clash_dns -p udp -j REDIRECT --to-ports $dns_port
-      	        iptables -t nat -A clash_dns -p tcp -j REDIRECT --to-ports $dns_port
-				
-
-		if [ $lan -eq 1 ]; then
+		elif [ $lan -eq 1 ]; then	
 			iptables -t nat -A clash -p tcp -m set --match-set clash_lan_ac src -j REDIRECT --to-ports $proxy_port
 		else
 			iptables -t nat -A clash -p tcp -j REDIRECT --to-ports $proxy_port
@@ -218,54 +206,54 @@ enable=$(uci get clash.config.enable 2>/dev/null)
 size=`ls -l /etc/clash/config.yml|awk '{print $5}'`
 lan=$(uci get clash.config.proxylan 2>/dev/null)
 lanac=$(uci get clash.config.rejectlan 2>/dev/null)
+
 if [ $enable -eq 1 ]; then
 
 if [ $size -ne 0 ]; then
 
-		whitelist
-		if [ $lan ]; then
-		    access >/dev/null 2>&1
-		fi
-		if [ $lanac ]; then
-			reject_access >/dev/null 2>&1
-		fi
-
-		proxy_port=$(uci get clash.config.proxy_port 2>/dev/null)
-		
-		yml_change
-
-		yml_dns_change
-		
-		nohup $CLASH -d "$CLASH_CONFIG" > /tmp/clash.log 2>&1 &	
-		  
-		ln -s /usr/share/clash/web /www/clash
-				
-		uci set firewall.@defaults[0].flow_offloading=1
-		uci commit firewall	
-		/etc/init.d/firewall restart >/dev/null 2>&1
-			
-		rules >/dev/null 2>&1
-		
-		killall -1 dnsmasq
-		
-		/etc/init.d/dnsmasq restart >/dev/null 2>&1
-
-		
-		if pidof clash >/dev/null; then
-			add_cron
-			nohup /usr/share/clash/clash-watchdog.sh > /var/log/clash-watchdog.file 2>&1 &
-		
-		fi
-		
-	else
-		echo "===============================$(date "+%Y-%m-%d %H:%M:%S")  problem with config.yml,  config.yml is either empty or not found  =====================================" >> /tmp/clash.log
-
-
-	fi
 	
+	if [ $lan ]; then
+		access >/dev/null 2>&1
+	fi
+
+	if [ $lanac ]; then
+		reject_access >/dev/null 2>&1
+	fi
+
+   	proxy_port=$(uci get clash.config.proxy_port 2>/dev/null)
+	
+    	yml_change
+
+	yml_dns_change
+	
+    	nohup $CLASH -d "$CLASH_CONFIG" > /tmp/clash.log 2>&1 &	
+	  
+	ln -s /usr/share/clash/web /www/clash
+			
+	uci set firewall.@defaults[0].flow_offloading=1
+	uci commit firewall	
+	/etc/init.d/firewall restart >/dev/null 2>&1
+		
+	rules >/dev/null 2>&1
+	
+	killall -1 dnsmasq
+	
+	/etc/init.d/dnsmasq restart >/dev/null 2>&1
+
+	
+	if pidof clash >/dev/null; then
+		add_cron
+		nohup /usr/share/clash/clash-watchdog.sh > /var/log/clash-watchdog.file 2>&1 &
+	
+	fi
+else
+	echo "===============================$(date "+%Y-%m-%d %H:%M:%S")  problem with config.yml,  config.yml is either empty or not found =====================================" >> /tmp/clash.log
+
+
+fi
 
 else
-	echo "===============================$(date "+%Y-%m-%d %H:%M:%S")  CLASH IS DISABLED =====================================" >> /tmp/clash.log
+	echo "===============================$(date "+%Y-%m-%d %H:%M:%S")  CLIENT IS DISABLED =====================================" >> /tmp/clash.log
 fi
 
 
@@ -282,10 +270,10 @@ stop_service(){
 		iptables -t nat -X clash_dns >/dev/null 2>&1
 		iptables -t nat -D PREROUTING -p tcp -j clash >/dev/null 2>&1
 		iptables -t nat -D PREROUTING -p tcp -j clash_dns >/dev/null 2>&1
-		
+
 		ipset -! flush clash_lan_ac >/dev/null 2>&1
 		ipset -! flush clash_lan >/dev/null 2>&1
-		
+
 		kill -9 $(ps | grep clash-watchdog.sh | grep -v grep | awk '{print $1}') >/dev/null 2>&1
 
 		kill -9 `pidof clash|sed "s/$//g"` 2>/dev/null
@@ -312,13 +300,13 @@ stop_service(){
 restart(){
 #=========================================================================================================================== 
 
-if pidof clash >/dev/null; then
-		stop
-		sleep 2
-		start
-else
-		start
-fi	
+		if pidof clash >/dev/null; then
+			stop
+			sleep 2
+		    	start
+		else
+		    	start
+		fi	
 
 #=========================================================================================================================== 
 }

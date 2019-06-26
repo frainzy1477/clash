@@ -11,8 +11,8 @@
 	<a target="_blank" href="https://github.com/frainzy1477/clash/releases/tag/0.14.0">
     <img src="https://img.shields.io/badge/Clash-v0.14.0-orange.svg">
   </a>
-  <a target="_blank" href="https://github.com/frainzy1477/clash/releases/tag/v0.20.0">
-    <img src="https://img.shields.io/badge/luci%20for%20clash-v0.20.0-blue.svg">
+  <a target="_blank" href="https://github.com/frainzy1477/clash/releases/tag/v0.21.0">
+    <img src="https://img.shields.io/badge/luci%20for%20clash-v0.21.0-blue.svg">
   </a>
   
   </p>
