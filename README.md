@@ -8,20 +8,20 @@
 	A rule based custom proxy for Openwrt based on <a href="https://github.com/Dreamacro/clash" target="_blank">Clash</a>.
   </p>
   <p align="center">
-	<a target="_blank" href="https://github.com/frainzy1477/clash/releases/tag/v0.14.0">
-    <img src="https://img.shields.io/badge/Clash-v0.14.0-orange.svg">
+	<a target="_blank" href="https://github.com/frainzy1477/clash/releases/tag/c0.15.0">
+    <img src="https://img.shields.io/badge/Clash-v0.15.0-orange.svg">
   </a>
-  <a target="_blank" href="https://github.com/frainzy1477/clash/releases/tag/v0.21.0">
-    <img src="https://img.shields.io/badge/luci%20for%20clash-v0.21.0-blue.svg">
+  <a target="_blank" href="https://github.com/frainzy1477/clash/releases/tag/v0.22.0">
+    <img src="https://img.shields.io/badge/luci%20for%20clash-v0.22.0-blue.svg">
   </a>
   
   </p>
   
 ## Usage
 
-- Download and install clash ipk for openwrt [Download Clash ipk](https://github.com/frainzy1477/clash/releases/tag/v0.14.0) .
+- Download and install clash ipk for openwrt [Download Clash ipk](https://github.com/frainzy1477/clash/releases/tag/c0.15.0) .
 
-- Also Download and install luci for clash ipk  [Download Luci for Clash ipk](https://github.com/frainzy1477/clash/releases/tag/v0.21.0)
+- Also Download and install luci for clash ipk  [Download Luci for Clash ipk](https://github.com/frainzy1477/clash/releases/tag/v0.22.0)
 
 ## Features
 
