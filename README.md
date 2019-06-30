@@ -1,14 +1,14 @@
-<h1 align="center">
+<h2 align="center">
   <img src="https://github.com/Dreamacro/clash/raw/master/docs/logo.png" alt="Clash" width="200">
   <br>Clash for OpenWrt <br>
 
-</h1>
+</h2>
 
   <p align="center">
 	A rule based custom proxy for Openwrt based on <a href="https://github.com/Dreamacro/clash" target="_blank">Clash</a>.
   </p>
   <p align="center">
-	<a target="_blank" href="https://github.com/frainzy1477/clash/releases/tag/c0.15.0">
+	<a target="_blank" href="https://github.com/frainzy1477/clash/releases/tag/v0.15.0">
     <img src="https://img.shields.io/badge/Clash-v0.15.0-orange.svg">
   </a>
   
@@ -16,7 +16,7 @@
   
 ## Usage
 
-- Download and install clash ipk for openwrt [Download Clash ipk](https://github.com/frainzy1477/clash/releases/tag/c0.15.0) .
+- Download and install clash ipk for openwrt [Download Clash ipk](https://github.com/frainzy1477/clash/releases/tag/v0.15.0) .
 
 - Also Download and install luci for clash ipk  [Download Luci for Clash ipk](https://github.com/frainzy1477/luci-app-clash/releases/tag/v0.23.0)
 
