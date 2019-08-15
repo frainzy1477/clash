@@ -9,7 +9,7 @@
   </p>
   <p align="center">
 	<a target="_blank" href="https://github.com/frainzy1477/clash/releases/tag/v0.15.1-dev">
-    <img src="https://img.shields.io/badge/Clash-v0.15.1-dev-orange.svg">
+    <img src="https://img.shields.io/badge/Clash-v0.15.1-orange.svg">
   </a>
   
   </p>
