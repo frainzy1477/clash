@@ -38,10 +38,11 @@ PKG_HASH:=skip
 include $(INCLUDE_DIR)/package.mk
 
 define Package/$(PKG_NAME)
-	SECTION:=net
-	CATEGORY:=Network
+	SECTION:=luci
+	CATEGORY:=LuCI
+	SUBMENU:=2. Clash
 	TITLE:=clash is a cross-platform proxy software
-	DEPENDS:=
+	DEPENDS:=+luci +luci-base
 	URL:=https://github.com/frainzy1477/clash_dev/releases
 endef
 
