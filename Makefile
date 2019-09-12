@@ -1,15 +1,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=clash
-PKG_VERSION:=0.15.1
-PKG_RELEASE:=1
+PKG_VERSION:=0.15.2
 PKG_MAINTAINER:=frainzy1477
 
 ifeq ($(ARCH),mipsel)
 	PKG_ARCH:=mipsle
 endif
 ifeq ($(ARCH),mips)
-	PKG_ARCH:=mips64
+	PKG_ARCH:=mips
 endif
 ifeq ($(ARCH),i386)
 	PKG_ARCH:=386
@@ -18,13 +17,13 @@ ifeq ($(ARCH),x86_64)
 	PKG_ARCH:=amd64
 endif
 ifeq ($(ARCH),arm)
-PKG_ARCH:=armv6
-  ifneq ($(BOARD),bcm53xx)
-	PKG_ARCH:=armv7
-  endif
-  ifeq ($(BOARD),kirkwood)
-	PKG_ARCH:=armv5
-  endif
+	PKG_ARCH:=armv6
+	ifneq ($(BOARD),bcm53xx)
+		PKG_ARCH:=armv7
+	endif
+	ifeq ($(BOARD),kirkwood)
+		PKG_ARCH:=armv5
+	endif
 endif
 ifeq ($(ARCH),aarch64)
 	PKG_ARCH:=armv8
@@ -38,11 +37,10 @@ PKG_HASH:=skip
 include $(INCLUDE_DIR)/package.mk
 
 define Package/$(PKG_NAME)
-	SECTION:=luci
-	CATEGORY:=LuCI
-	SUBMENU:=2. Clash
+	SECTION:=net
+	CATEGORY:=Network
 	TITLE:=clash is a cross-platform proxy software
-	DEPENDS:=+luci +luci-base
+	DEPENDS:=
 	URL:=https://github.com/frainzy1477/clash_dev/releases
 endef
 
@@ -59,7 +57,10 @@ endef
 
 define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/etc/clash
+	$(INSTALL_DIR) $(1)/usr/share/clash
+
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/clash-linux-$(PKG_ARCH) $(1)/etc/clash/clash
+	$(INSTALL_BIN) ./file/core_version $(1)/usr/share/clash/
 endef
 
 
