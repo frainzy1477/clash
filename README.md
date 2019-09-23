@@ -8,21 +8,21 @@
 	A rule based custom proxy for Openwrt based on <a href="https://github.com/Dreamacro/clash" target="_blank">Clash</a>.
   </p>
   <p align="center">
-	<a target="_blank" href="https://github.com/frainzy1477/clash/releases/tag/v0.15.3">
-    <img src="https://img.shields.io/badge/Clash-v0.15.3-orange.svg">
+	<a target="_blank" href="https://github.com/frainzy1477/clash/releases/tag/v0.15.4">
+    <img src="https://img.shields.io/badge/Clash-v0.15.4-orange.svg">
   </a>
   
   </p>
   
 ## Usage
 
-- Download and install clash ipk for openwrt [Download Clash ipk](https://github.com/frainzy1477/clash/releases/tag/v0.15.3) .
+- Download and install clash ipk for openwrt [Download Clash ipk](https://github.com/frainzy1477/clash/releases/tag/v0.15.4) .
 
 - cd /tmp
 
-- opkg install clash_0.15.3_x86_64.ipk
+- opkg install clash_0.15.4_x86_64.ipk
 
-- Also Download and install luci for clash ipk  [Download Luci for Clash ipk](https://github.com/frainzy1477/luci-app-clash/releases/tag/v1.1.1)
+- Also Download and install luci for clash ipk  [Download Luci for Clash ipk](https://github.com/frainzy1477/luci-app-clash/releases/tag/v1.1.2)
 
 ## Features
 
