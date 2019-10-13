@@ -37,11 +37,11 @@
 - Support fake-ip
 - logs and traffic API support websocket
 - support custom hosts (NOTE: if a host pointed to a local IP but pass through a proxy by rule, it won't use DIRECT)
-- support customizing bind-address when allow-lan is true (#255)
-- trace adapters when dialing (#170)
-- allow arbitrary order in proxy group (#89)
+- support customizing bind-address when allow-lan is true 
+- trace adapters when dialing 
+- allow arbitrary order in proxy group 
 - add read clash version API
-- add dns fallback filters (#105)
+- add dns fallback filters 
 - v2ray-plugin support disable mux
 - proxy group use correctly last speed test record
 - experimental support snell
