@@ -1,7 +1,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=clash
-PKG_VERSION:=0.16.0
+PKG_VERSION:=0.16.1
 PKG_MAINTAINER:=frainzy1477
 
 ifeq ($(ARCH),mipsel)
@@ -24,6 +24,7 @@ ifeq ($(ARCH),aarch64)
 	PKG_ARCH:=armv8
 	PKG_SOURCE:=clash-linux-$(PKG_ARCH)-v$(PKG_VERSION).gz
 endif
+
 
 PKG_SOURCE_URL:=https://github.com/frainzy1477/clash_dev/releases/download/v$(PKG_VERSION)/
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
