@@ -59,5 +59,4 @@ define Package/$(PKG_NAME)/install
 	$(INSTALL_BIN) ./file/core_version $(1)/usr/share/clash/
 endef
 
-
 $(eval $(call BuildPackage,$(PKG_NAME)))
