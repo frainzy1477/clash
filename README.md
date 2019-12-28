@@ -8,15 +8,15 @@
 	A rule based custom proxy for Openwrt based on <a href="https://github.com/Dreamacro/clash" target="_blank">Clash</a>.
   </p>
   <p align="center">
-	<a target="_blank" href="https://github.com/frainzy1477/clash/releases/tag/v0.16.5">
-    <img src="https://img.shields.io/badge/clash-v0.16.5-orange.svg">
+	<a target="_blank" href="https://github.com/frainzy1477/clash/releases/tag/v0.16.7">
+    <img src="https://img.shields.io/badge/clash-v0.16.7-orange.svg">
   </a>
   
   </p>
   
 ## Usage
 
-- Download and install clash ipk for openwrt [Download Clash ipk](https://github.com/frainzy1477/clash/releases/tag/v0.16.5) .
+- Download and install clash ipk for openwrt [Download Clash ipk](https://github.com/frainzy1477/clash/releases/tag/v0.16.7) .
 
 - cd /tmp
 
